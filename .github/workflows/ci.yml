@@ -36,7 +36,7 @@ jobs:
       run: go test ./...  # 执行 Go 测试
 
     - name: Build Go project
-      run: go build -v .  # 编译 Go 项目
+      run: go build -v -o main .  # 编译 Go 项目
 
     - name: List files (Debug)
       run: ls -l  # 查看当前目录下的文件
