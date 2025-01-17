@@ -38,6 +38,9 @@ jobs:
     - name: Build Go project
       run: go build -v .  # 编译 Go 项目
 
+    - name: List files (Debug)
+      run: ls -l  # 查看当前目录下的文件
+
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v3  # 上传构建产物
       with:
