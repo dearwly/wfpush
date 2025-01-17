@@ -48,11 +48,20 @@ jobs:
     - name: List files (Debug)
       run: ls -l  # 查看当前目录下的文件
 
-    - name: Upload Build Artifacts
-      uses: actions/upload-artifact@v4  # 上传构建产物
+    - name: Upload Linux amd64 binary
+      uses: actions/upload-artifact@v4
       with:
-        name: go-build-artifact
-        path: |
-          ./main-linux-amd64
-          ./main-linux-arm64
-          ./main-windows-amd64.exe  # 上传多个构建产物
+        name: linux-amd64-binary
+        path: ./main-linux-amd64
+
+    - name: Upload Linux arm64 binary
+      uses: actions/upload-artifact@v4
+      with:
+        name: linux-arm64-binary
+        path: ./main-linux-arm64
+
+    - name: Upload Windows amd64 binary
+      uses: actions/upload-artifact@v4
+      with:
+        name: windows-amd64-binary
+        path: ./main-windows-amd64.exe
