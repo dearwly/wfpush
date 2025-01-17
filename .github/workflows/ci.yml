@@ -1,0 +1,45 @@
+name: Go Build
+
+on:
+  push:
+    branches:
+      - main  # 监听 push 到 main 分支的事件
+  pull_request:
+    branches:
+      - main  # 监听针对 main 分支的 pull request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # 设置运行环境为最新的 Ubuntu
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3  # Checkout 项目的代码
+
+    - name: Set up Go
+      uses: actions/setup-go@v3  # 安装 Go 环境
+      with:
+        go-version: '1.23.5'  # 设置 Go 的版本，根据需要修改
+
+    - name: Cache Go modules
+      uses: actions/cache@v3  # 缓存 Go 模块，提升构建速度
+      with:
+        path: ~/.cache/go-build
+        key: ${{ runner.os }}-go-mod-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-mod-
+
+    - name: Install dependencies
+      run: go mod tidy  # 安装 Go 模块
+
+    - name: Run tests
+      run: go test ./...  # 执行 Go 测试
+
+    - name: Build Go project
+      run: go build -v .  # 编译 Go 项目
+
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v3  # 上传构建产物
+      with:
+        name: go-build-artifact
+        path: ./main  # 将构建产物的路径替换为实际的二进制文件路径
