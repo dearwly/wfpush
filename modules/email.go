@@ -26,53 +26,53 @@ func Send_email() {
 		ServerName:         smtpServer,
 	})
 	if err != nil {
-		Log("Failed to connect to the server:")
+		Log("Failed to connect to the server:", ERROR)
 		return
 	}
 
 	// 创建 SMTP 客户端
 	client, err := smtp.NewClient(conn, smtpServer)
 	if err != nil {
-		Log("Failed to create SMTP client:")
+		Log("Failed to create SMTP client:", ERROR)
 		return
 	}
 
 	// 认证
 	auth := smtp.PlainAuth("", sender, password, smtpServer)
 	if err := client.Auth(auth); err != nil {
-		Log("Authentication failed:")
+		Log("Authentication failed:", ERROR)
 		return
 	}
 
 	// 设置发件人和收件人
 	if err := client.Mail(sender); err != nil {
-		Log("Failed to set mail from:")
+		Log("Failed to set mail from:", ERROR)
 		return
 	}
 	if err := client.Rcpt(recipient); err != nil {
-		Log("Failed to set recipient:")
+		Log("Failed to set recipient:", ERROR)
 		return
 	}
 
 	// 发送邮件内容
 	writer, err := client.Data()
 	if err != nil {
-		Log("Failed to create writer:")
+		Log("Failed to create writer:", ERROR)
 		return
 	}
 	_, err = writer.Write(message)
 	if err != nil {
-		Log("Failed to write message:")
+		Log("Failed to write message:", ERROR)
 		return
 	}
 	err = writer.Close()
 	if err != nil {
-		Log("Failed to close writer:")
+		Log("Failed to close writer:", ERROR)
 		return
 	}
 
 	// 关闭连接
 	client.Quit()
 
-	Log("Email sent successfully!")
+	Log("Email sent successfully!", INFO)
 }

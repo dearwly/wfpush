@@ -7,7 +7,7 @@ import (
 
 func main() {
 	// 初始化日志
-	err := modules.InitLog("app_log.txt")
+	err := modules.InitLog("log.txt")
 	if err != nil {
 		fmt.Println("Error initializing log:", err)
 		return
