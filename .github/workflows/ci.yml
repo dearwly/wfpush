@@ -35,14 +35,24 @@ jobs:
     - name: Run tests
       run: go test ./...  # 执行 Go 测试
 
-    - name: Build Go project
-      run: go build -v -o main .  # 编译 Go 项目
+    - name: Build Go project for Linux amd64
+      run: GOOS=linux GOARCH=amd64 go build -v -o main-linux-amd64 .  # 构建 Linux amd64 版
+
+    - name: Build Go project for Linux arm64
+      run: GOOS=linux GOARCH=arm64 go build -v -o main-linux-arm64 .  # 构建 Linux arm64 版
+
+    - name: Build Go project for Windows amd64
+      run: GOOS=windows GOARCH=amd64 go build -v -o main-windows-amd64.exe .  # 构建 Windows 版
+
 
     - name: List files (Debug)
       run: ls -l  # 查看当前目录下的文件
 
     - name: Upload Build Artifacts
-      uses: actions/upload-artifact@v3  # 上传构建产物
+      uses: actions/upload-artifact@v4  # 上传构建产物
       with:
         name: go-build-artifact
-        path: ./main  # 将构建产物的路径替换为实际的二进制文件路径
+        path: |
+          ./main-linux-amd64
+          ./main-linux-arm64
+          ./main-windows-amd64.exe  # 上传多个构建产物
