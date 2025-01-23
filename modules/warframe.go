@@ -61,7 +61,7 @@ func GetFissuresWithRetry(f Warframe, maxRetries int, delay time.Duration) ([]by
 		res, err := client.Do(req)
 		if err != nil {
 			if attempt < maxRetries-1 {
-				Log(fmt.Sprint("请求失败 (尝试 %d/%d): %v\n", attempt+1, maxRetries, err), ERROR)
+				Log(fmt.Sprintf("请求失败 (尝试 %d/%d): %v\n", attempt+1, maxRetries, err), ERROR)
 				time.Sleep(delay)
 				continue
 			}
@@ -71,7 +71,7 @@ func GetFissuresWithRetry(f Warframe, maxRetries int, delay time.Duration) ([]by
 
 		if res.StatusCode >= 400 && res.StatusCode < 600 {
 			if attempt < maxRetries-1 {
-				Log(fmt.Sprint("请求失败 (状态码 %d) (尝试 %d/%d)\n", res.StatusCode, attempt+1, maxRetries), ERROR)
+				Log(fmt.Sprintf("请求失败 (状态码 %d) (尝试 %d/%d)\n", res.StatusCode, attempt+1, maxRetries), ERROR)
 				time.Sleep(delay)
 				continue
 			}
