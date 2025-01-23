@@ -221,26 +221,29 @@ func CheckSubFissure(f Warframe) error {
 
 	// 输出当前已存在的裂缝
 	for _, id := range ids.ID {
-		Log_INFO("当前已存在ID: " + id)
+		Log_INFO("当前已存在裂缝: " + id)
 	}
 
 	data, err := GetRawFissures(f)
 	if err != nil {
 		return err
 	}
-	var newFissures []string = []string{"default"}
+	var newFissures []string = []string{}
 	//检查已有裂缝
 	for _, fissure := range data {
 		if fissure.Active {
 			for _, subsfissure := range f.SubsFissures {
-				if subsfissure.IsHard == fissure.IsHard && subsfissure.MissionType == fissure.MissionType && subsfissure.Tier == fissure.Tier {
+				if (subsfissure.IsHard == fissure.IsHard || !subsfissure.IsHard) && (subsfissure.MissionType == fissure.MissionType || subsfissure.MissionType == "") && (subsfissure.Tier == fissure.Tier || subsfissure.Tier == "") {
+					flag := false
 					for _, s := range ids.ID {
 						if s == fissure.ID {
 							newFissures = append(newFissures, fissure.ID)
+							flag = true
 						}
 					}
-					newFissures = append(newFissures, fissure.ID)
-
+					if !flag {
+						newFissures = append(newFissures, fissure.ID)
+					}
 				}
 			}
 		}
@@ -249,9 +252,19 @@ func CheckSubFissure(f Warframe) error {
 	// 更新本地json文件
 	file, err = os.Create("exists.json")
 	if err != nil {
-		fmt.Println("Error creating file:", err)
+		Log(fmt.Sprint("Error creating file:", err), ERROR)
 		return err
 	}
 	defer file.Close()
+
+	// 使用JSON编码将数据写入文件
+	encoder := json.NewEncoder(file)
+	encoder.SetIndent("", "  ") // 美化输出
+	err = encoder.Encode(ids)
+	if err != nil {
+		Log(fmt.Sprint("Error encoding JSON:", err), ERROR)
+		return err
+	}
+
 	return nil
 }
