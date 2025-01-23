@@ -1,0 +1,217 @@
+2025/01/17 16:07:18 log.go:69: [2025-01-17 16:07:18] [INFO] INFO: Log initialized successfully.
+2025/01/17 16:07:18 log.go:69: [2025-01-17 16:07:18] [INFO] INFO: Email sent successfully!
+2025/01/17 16:18:34 log.go:69: [2025-01-17 16:18:34] [INFO] INFO: Log initialized successfully.
+2025/01/17 16:26:11 log.go:69: [2025-01-17 16:26:11] [INFO] INFO: Log initialized successfully.
+2025/01/17 16:28:11 log.go:69: [2025-01-17 16:28:11] [INFO] INFO: Log initialized successfully.
+2025/01/17 16:28:59 log.go:69: [2025-01-17 16:28:59] [INFO] INFO: Log initialized successfully.
+2025/01/20 10:01:51 log.go:69: [2025-01-20 10:01:51] [INFO] INFO: Log initialized successfully.
+2025/01/20 10:13:45 log.go:69: [2025-01-20 10:13:45] [INFO] INFO: Log initialized successfully.
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678d990ad7a334fca3c1c18d, Title: 钢铁之路 間諜 - 間諜, Location: Shklovsky (火衛一)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678d9b633236e7d2d2c1c18d, Title: 钢铁之路 攔截 - 攔截, Location: Mithra (虚空)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678d9cca0f00ef3b39c1c18d, Title: 钢铁之路 殲滅 - 殲滅, Location: E Prime (地球)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678da62a0256cd00f4c1c18d, Title: 钢铁之路 生存 - 生存, Location: Circulus (月球)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678dad3209caa700cac1c18d, Title: 钢铁之路 生存 - 生存, Location: Nimus (鬩神星)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678dadab10f42de10dc1c18d, Title: 钢铁之路 生存 - 生存, Location: Taveuni (Kuva 要塞)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678dadab10f42de10dc1c18e, Title: 钢铁之路 間諜 - 間諜, Location: Pago (Kuva 要塞)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678dadab10f42de10dc1c18f, Title: 钢铁之路 殲滅 - 殲滅, Location: Dakata (Kuva 要塞)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678db07ac7d016cd27c1c18d, Title: 钢铁之路 破壞 - 破壞, Location: Thebe (木星)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678db07ac7d016cd27c1c18e, Title: 钢铁之路 破壞 - 破壞, Location: Ker (穀神星)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678d9f5efb168ca969c1c18d, Title: 防禦 - 防禦, Location: Gulliver (火衛一)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678d9f5efb168ca969c1c18e, Title: 救援 - 救援, Location: Nuovo (穀神星)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678da44a7696258d75c1c18d, Title: 防禦 - 防禦, Location: Kala-azar (鬩神星)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678da44a7696258d75c1c18e, Title: 捕獲 - 捕獲, Location: Ukko (虚空)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678da44a7696258d75c1c18f, Title: 移動防禦 - 移動防禦, Location: Charybdis (賽德娜)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678da44a7696258d75c1c190, Title: 防禦 - 防禦, Location: Spear (火星)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678da44a7696258d75c1c191, Title: 攔截 - 攔截, Location: Cytherean (金星)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678da6debf30b1e063c1c18d, Title: 防禦 - 防禦, Location: Proteus (海王星)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678da6debf30b1e063c1c18e, Title: 防禦 - 防禦, Location: Stephano (天王星)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678da6debf30b1e063c1c18f, Title: 間諜 - 間諜, Location: Valac (歐羅巴)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678da7ce2c06c613d5c1c18d, Title: 虚空覆涌 - 虚空覆涌, Location: 涂沃主厅(扎里曼)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678da7ce2c06c613d5c1c18e, Title: 生存 - 生存, Location: Yuvarium (月球)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678dafc7c671626eb7c1c18d, Title: 中断 - 中断, Location: Tamu (Kuva 要塞)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678d9b623c2db869b6c1c18c, Title: 虚空风暴 前哨战 - 前哨战, Location: 奥加尔星团 (地球比邻星域)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678d9b623c2db869b6c1c18f, Title: 虚空风暴 間諜 - 間諜, Location: 薄暮星团 (海王星比邻星域)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678d9b623c2db869b6c1c18e, Title: 虚空风暴 前哨战 - 前哨战, Location: 卢帕星道 (土星比邻星域)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678d9b623c2db869b6c1c18d, Title: 虚空风暴 間諜 - 間諜, Location: 欧文－哈克 (金星比邻星域)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678d9b623c2db869b6c1c191, Title: 虚空风暴 間諜 - 間諜, Location: 萨米尔星云 (面纱)
+
+2025/01/20 10:13:46 log.go:75: [2025-01-20 10:13:46] [INFO] INFO: ID: 678d9b623c2db869b6c1c190, Title: 虚空风暴 生存 - 生存, Location: 芬顿之地 (冥王星比邻星域)
+
+[2025-01-20 10:16:10] [INFO] INFO: Log initialized successfully.
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678d9b633236e7d2d2c1c18d, Title: 钢铁之路 攔截 - 攔截, Location: Mithra (虚空)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678d9cca0f00ef3b39c1c18d, Title: 钢铁之路 殲滅 - 殲滅, Location: E Prime (地球)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678da62a0256cd00f4c1c18d, Title: 钢铁之路 生存 - 生存, Location: Circulus (月球)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678dad3209caa700cac1c18d, Title: 钢铁之路 生存 - 生存, Location: Nimus (鬩神星)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678dadab10f42de10dc1c18d, Title: 钢铁之路 生存 - 生存, Location: Taveuni (Kuva 要塞)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678dadab10f42de10dc1c18e, Title: 钢铁之路 間諜 - 間諜, Location: Pago (Kuva 要塞)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678dadab10f42de10dc1c18f, Title: 钢铁之路 殲滅 - 殲滅, Location: Dakata (Kuva 要塞)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678db07ac7d016cd27c1c18d, Title: 钢铁之路 破壞 - 破壞, Location: Thebe (木星)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678db07ac7d016cd27c1c18e, Title: 钢铁之路 破壞 - 破壞, Location: Ker (穀神星)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678db12e6fdc0944b7c1c18d, Title: 钢铁之路 防禦 - 防禦, Location: Taranis (虚空)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678d9f5efb168ca969c1c18d, Title: 防禦 - 防禦, Location: Gulliver (火衛一)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678d9f5efb168ca969c1c18e, Title: 救援 - 救援, Location: Nuovo (穀神星)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678da44a7696258d75c1c18d, Title: 防禦 - 防禦, Location: Kala-azar (鬩神星)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678da44a7696258d75c1c18e, Title: 捕獲 - 捕獲, Location: Ukko (虚空)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678da44a7696258d75c1c18f, Title: 移動防禦 - 移動防禦, Location: Charybdis (賽德娜)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678da44a7696258d75c1c190, Title: 防禦 - 防禦, Location: Spear (火星)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678da44a7696258d75c1c191, Title: 攔截 - 攔截, Location: Cytherean (金星)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678da6debf30b1e063c1c18d, Title: 防禦 - 防禦, Location: Proteus (海王星)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678da6debf30b1e063c1c18e, Title: 防禦 - 防禦, Location: Stephano (天王星)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678da6debf30b1e063c1c18f, Title: 間諜 - 間諜, Location: Valac (歐羅巴)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678da7ce2c06c613d5c1c18d, Title: 虚空覆涌 - 虚空覆涌, Location: 涂沃主厅(扎里曼)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678da7ce2c06c613d5c1c18e, Title: 生存 - 生存, Location: Yuvarium (月球)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678dafc7c671626eb7c1c18d, Title: 中断 - 中断, Location: Tamu (Kuva 要塞)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678d9b623c2db869b6c1c18c, Title: 虚空风暴 前哨战 - 前哨战, Location: 奥加尔星团 (地球比邻星域)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678d9b623c2db869b6c1c18d, Title: 虚空风暴 間諜 - 間諜, Location: 欧文－哈克 (金星比邻星域)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678d9b623c2db869b6c1c18e, Title: 虚空风暴 前哨战 - 前哨战, Location: 卢帕星道 (土星比邻星域)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678d9b623c2db869b6c1c18f, Title: 虚空风暴 間諜 - 間諜, Location: 薄暮星团 (海王星比邻星域)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678d9b623c2db869b6c1c190, Title: 虚空风暴 生存 - 生存, Location: 芬顿之地 (冥王星比邻星域)
+
+[2025-01-20 10:16:11] [INFO] INFO: ID: 678d9b623c2db869b6c1c191, Title: 虚空风暴 間諜 - 間諜, Location: 萨米尔星云 (面纱)
+
+[2025-01-20 10:26:44] [INFO] INFO: Log initialized successfully.
+[2025-01-20 10:26:47] [INFO] INFO: ID: 678d9cca0f00ef3b39c1c18d, Title: 钢铁之路 殲滅 - 殲滅, Location: E Prime (地球)
+
+[2025-01-20 10:26:47] [INFO] INFO: ID: 678da62a0256cd00f4c1c18d, Title: 钢铁之路 生存 - 生存, Location: Circulus (月球)
+
+[2025-01-20 10:26:47] [INFO] INFO: ID: 678dad3209caa700cac1c18d, Title: 钢铁之路 生存 - 生存, Location: Nimus (鬩神星)
+
+[2025-01-20 10:26:47] [INFO] INFO: ID: 678dadab10f42de10dc1c18d, Title: 钢铁之路 生存 - 生存, Location: Taveuni (Kuva 要塞)
+
+[2025-01-20 10:26:47] [INFO] INFO: ID: 678dadab10f42de10dc1c18e, Title: 钢铁之路 間諜 - 間諜, Location: Pago (Kuva 要塞)
+
+[2025-01-20 10:26:47] [INFO] INFO: ID: 678dadab10f42de10dc1c18f, Title: 钢铁之路 殲滅 - 殲滅, Location: Dakata (Kuva 要塞)
+
+[2025-01-20 10:26:47] [INFO] INFO: ID: 678db07ac7d016cd27c1c18d, Title: 钢铁之路 破壞 - 破壞, Location: Thebe (木星)
+
+[2025-01-20 10:26:47] [INFO] INFO: ID: 678db07ac7d016cd27c1c18e, Title: 钢铁之路 破壞 - 破壞, Location: Ker (穀神星)
+
+[2025-01-20 10:26:47] [INFO] INFO: ID: 678db12e6fdc0944b7c1c18d, Title: 钢铁之路 防禦 - 防禦, Location: Taranis (虚空)
+
+[2025-01-20 10:26:47] [INFO] INFO: ID: 678d9f5efb168ca969c1c18d, Title: 防禦 - 防禦, Location: Gulliver (火衛一)
+
+[2025-01-20 10:26:47] [INFO] INFO: ID: 678d9f5efb168ca969c1c18e, Title: 救援 - 救援, Location: Nuovo (穀神星)
+
+[2025-01-20 10:26:47] [INFO] INFO: ID: 678da44a7696258d75c1c18d, Title: 防禦 - 防禦, Location: Kala-azar (鬩神星)
+
+[2025-01-20 10:26:47] [INFO] INFO: ID: 678da44a7696258d75c1c18e, Title: 捕獲 - 捕獲, Location: Ukko (虚空)
+
+[2025-01-20 10:26:47] [INFO] INFO: ID: 678da44a7696258d75c1c190, Title: 防禦 - 防禦, Location: Spear (火星)
+
+[2025-01-20 10:26:47] [INFO] INFO: ID: 678da44a7696258d75c1c191, Title: 攔截 - 攔截, Location: Cytherean (金星)
+
+[2025-01-20 10:26:47] [INFO] INFO: ID: 678da6debf30b1e063c1c18d, Title: 防禦 - 防禦, Location: Proteus (海王星)
+
+[2025-01-20 10:26:47] [INFO] INFO: ID: 678da6debf30b1e063c1c18e, Title: 防禦 - 防禦, Location: Stephano (天王星)
+
+[2025-01-20 10:26:47] [INFO] INFO: ID: 678da6debf30b1e063c1c18f, Title: 間諜 - 間諜, Location: Valac (歐羅巴)
+
+[2025-01-20 10:26:47] [INFO] INFO: ID: 678da7ce2c06c613d5c1c18d, Title: 虚空覆涌 - 虚空覆涌, Location: 涂沃主厅(扎里曼)
+
+[2025-01-20 10:26:47] [INFO] INFO: ID: 678da7ce2c06c613d5c1c18e, Title: 生存 - 生存, Location: Yuvarium (月球)
+
+[2025-01-20 10:26:47] [INFO] INFO: ID: 678dafc7c671626eb7c1c18d, Title: 中断 - 中断, Location: Tamu (Kuva 要塞)
+
+[2025-01-20 10:26:47] [INFO] INFO: ID: 678d9b623c2db869b6c1c18c, Title: 虚空风暴 前哨战 - 前哨战, Location: 奥加尔星团 (地球比邻星域)
+
+[2025-01-20 10:26:47] [INFO] INFO: ID: 678d9b623c2db869b6c1c18d, Title: 虚空风暴 間諜 - 間諜, Location: 欧文－哈克 (金星比邻星域)
+
+[2025-01-20 10:26:47] [INFO] INFO: ID: 678d9b623c2db869b6c1c18e, Title: 虚空风暴 前哨战 - 前哨战, Location: 卢帕星道 (土星比邻星域)
+
+[2025-01-20 10:26:47] [INFO] INFO: ID: 678d9b623c2db869b6c1c18f, Title: 虚空风暴 間諜 - 間諜, Location: 薄暮星团 (海王星比邻星域)
+
+[2025-01-20 10:26:47] [INFO] INFO: ID: 678d9b623c2db869b6c1c190, Title: 虚空风暴 生存 - 生存, Location: 芬顿之地 (冥王星比邻星域)
+
+[2025-01-20 10:26:47] [INFO] INFO: ID: 678d9b623c2db869b6c1c191, Title: 虚空风暴 間諜 - 間諜, Location: 萨米尔星云 (面纱)
+
+[2025-01-20 10:26:52] [INFO] INFO: Log initialized successfully.
+[2025-01-20 11:29:09] [INFO] INFO: Log initialized successfully.
+[2025-01-20 11:29:09] [ERROR] ERROR: Error decoding JSON:json: cannot unmarshal array into Go value of type modules.existsID
+[2025-01-20 11:29:09] [ERROR] ERROR: Error:json: cannot unmarshal array into Go value of type modules.existsID
+[2025-01-20 11:29:44] [INFO] INFO: Log initialized successfully.
+[2025-01-20 15:48:57] [INFO] INFO: Log initialized successfully.
+[2025-01-20 15:48:57] [ERROR] ERROR: Error decoding JSON:EOF
+[2025-01-20 15:48:57] [ERROR] ERROR: Error:EOF
+[2025-01-20 15:49:42] [INFO] INFO: Log initialized successfully.
+[2025-01-20 15:50:55] [INFO] INFO: Log initialized successfully.
+[2025-01-20 15:52:37] [INFO] INFO: Log initialized successfully.
+[2025-01-20 15:52:41] [INFO] INFO: 当前已存在ID: asd
+[2025-01-20 15:56:11] [INFO] INFO: Log initialized successfully.
+[2025-01-20 15:56:11] [ERROR] ERROR: Error decoding JSON:EOF
+[2025-01-20 15:56:11] [ERROR] ERROR: Error:EOF
+[2025-01-20 15:56:16] [INFO] INFO: Log initialized successfully.
+[2025-01-20 15:56:16] [INFO] INFO: 当前已存在ID: asd
+[2025-01-20 15:56:29] [INFO] INFO: Log initialized successfully.
+[2025-01-20 15:56:29] [ERROR] ERROR: Error decoding JSON:EOF
+[2025-01-20 15:56:29] [ERROR] ERROR: Error:EOF
+[2025-01-20 15:56:34] [INFO] INFO: Log initialized successfully.
+[2025-01-20 15:56:34] [INFO] INFO: 当前已存在ID: asd
+[2025-01-20 16:07:19] [INFO] INFO: Log initialized successfully.
+[2025-01-20 16:07:19] [ERROR] ERROR: Error decoding JSON:EOF
+[2025-01-20 16:07:19] [ERROR] ERROR: Error:EOF
+[2025-01-20 16:07:25] [INFO] INFO: Log initialized successfully.
+[2025-01-20 16:07:25] [ERROR] ERROR: Error decoding JSON:EOF
+[2025-01-20 16:07:25] [ERROR] ERROR: Error:EOF
+[2025-01-20 16:07:33] [INFO] INFO: Log initialized successfully.
+[2025-01-20 16:07:33] [ERROR] ERROR: Error decoding JSON:EOF
+[2025-01-20 16:07:33] [ERROR] ERROR: Error:EOF
+[2025-01-20 16:07:45] [INFO] INFO: Log initialized successfully.
+[2025-01-20 16:07:45] [INFO] INFO: 当前已存在ID: asd
+[2025-01-20 16:08:25] [INFO] INFO: Log initialized successfully.
+[2025-01-20 16:08:25] [INFO] INFO: 当前已存在ID: asd
+[2025-01-20 16:09:12] [INFO] INFO: Log initialized successfully.
+[2025-01-20 16:09:12] [INFO] INFO: 当前已存在ID: asd

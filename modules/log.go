@@ -31,7 +31,8 @@ func InitLog(logFileName string) error {
 
 	// 创建一个多路输出的 logger，将日志同时输出到文件和控制台
 	multiWriter := io.MultiWriter(os.Stdout, logFile)
-	logger = log.New(multiWriter, "", log.Ldate|log.Ltime|log.Lshortfile)
+	logger = log.New(multiWriter, "", 0)
+	// logger = log.New(multiWriter, "", log.Ldate|log.Ltime|log.Lshortfile)
 
 	// 记录初始化日志
 	Log("Log initialized successfully.", INFO)
@@ -66,5 +67,11 @@ func Log(message string, level string) {
 	}
 
 	// 输出日志到控制台和文件
+	logger.Println(logMessage)
+}
+
+func Log_INFO(message string) {
+	timestamp := time.Now().Format("2006-01-02 15:04:05")
+	logMessage := fmt.Sprintf("[%s] [INFO] %s: %s", timestamp, INFO, message)
 	logger.Println(logMessage)
 }
