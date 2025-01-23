@@ -219,11 +219,6 @@ func CheckSubFissure(f Warframe) error {
 		return err
 	}
 
-	// 输出当前已存在的裂缝
-	for _, fissure := range fissures.Fissures {
-		Log_INFO("当前已存在裂缝: " + fissure.ID)
-	}
-
 	data, err := GetRawFissures(f)
 	if err != nil {
 		return err
@@ -249,6 +244,18 @@ func CheckSubFissure(f Warframe) error {
 		}
 	}
 	fissures.Fissures = newFissures
+
+	// 输出已存在的裂缝
+	Log_INFO("裂缝: ")
+	for _, fissure := range fissures.Fissures {
+		texts, err := formatPrint(fissure)
+		if err != nil {
+			Log(fmt.Sprint("Error :", err), ERROR)
+		} else {
+			Log_INFO(texts)
+		}
+	}
+
 	// 更新本地json文件
 	file, err = os.Create("exists.json")
 	if err != nil {
@@ -267,4 +274,33 @@ func CheckSubFissure(f Warframe) error {
 	}
 
 	return nil
+}
+
+func formatPrint(fissure Fissure) (string, error) {
+
+	type formatFissure struct {
+		Head        string `json:"head"`
+		MissionType string `json:"missionType"`
+		EnemyKey    string `json:"enemyKey"`
+		Tier        string `json:"tier"`
+		Node        string `json:"node"`
+		ETA         string `json:"eta"`
+	}
+	head := ""
+	if fissure.IsHard {
+		head = "钢铁之路 "
+	}
+	if fissure.IsStorm {
+		head = "虚空风暴 "
+	}
+	formatedFissure := formatFissure{
+		Head:        head,
+		MissionType: fissure.MissionType,
+		EnemyKey:    fissure.EnemyKey,
+		Tier:        fissure.Tier,
+		Node:        fissure.Node,
+		ETA:         fissure.ETA,
+	}
+
+	return fmt.Sprintf("%s%s %s %s %s %s", formatedFissure.Head, formatedFissure.MissionType, formatedFissure.EnemyKey, formatedFissure.Tier, formatedFissure.Node, formatedFissure.ETA), nil
 }
