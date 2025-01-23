@@ -5,7 +5,7 @@ import (
 	"net/smtp"
 )
 
-func Send_email() {
+func Send_email(body string) {
 	// 邮件服务器配置
 	smtpServer := "smtp.163.com"
 	port := "465"                           // 使用 465 端口进行 SSL/TLS 加密连接
@@ -14,8 +14,7 @@ func Send_email() {
 	recipient := "dearwangliyu@outlook.com" // 收件人邮箱
 
 	// 邮件内容
-	subject := "Subject: Test Email from Go\n"
-	body := "This is a test email sent from Go!"
+	subject := "Warframe 小助手\n"
 
 	// 构建邮件内容
 	message := []byte(subject + "\n" + body)

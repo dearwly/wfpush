@@ -178,26 +178,32 @@ func GetFissures(f Warframe, type_ int) ([]map[string]string, error) {
 
 // 发送邮件
 func SendSubsFissures(f Warframe) error {
-	data, err := GetRawFissures(f)
+	fissures, isNew, err := CheckSubsFissure(f)
 	if err != nil {
 		return err
 	}
-	//检查已有裂缝
-	for _, fissure := range data {
-		if fissure.Active {
-			for _, subsfissure := range f.SubsFissures {
-				if subsfissure.IsHard == fissure.IsHard && subsfissure.MissionType == fissure.MissionType && subsfissure.Tier == fissure.Tier {
-
-				}
+	if isNew {
+		body := "您订阅的裂缝："
+		for _, fissure := range fissures {
+			result, err := formatPrint(fissure)
+			if err != nil {
+				// 处理错误
+				Log(fmt.Sprint("Error: formatting fissure", err), ERROR)
+				continue
 			}
+			body += result + " n"
 		}
+
+		Send_email(body)
 	}
+
 	return nil
 }
 
 // 检查已有裂缝
-func CheckSubFissure(f Warframe) error {
+func CheckSubsFissure(f Warframe) ([]Fissure, bool, error) {
 
+	// 当前存在的订阅裂缝
 	type existsFissures struct {
 		Fissures []Fissure `json:"fissure"`
 	}
@@ -206,7 +212,7 @@ func CheckSubFissure(f Warframe) error {
 	file, err := os.Open("exists.json")
 	if err != nil {
 		Log(fmt.Sprint("Error opening file:", err), ERROR)
-		return err
+		return []Fissure{}, false, err
 	}
 	defer file.Close()
 
@@ -216,15 +222,16 @@ func CheckSubFissure(f Warframe) error {
 	err = decoder.Decode(&fissures)
 	if err != nil {
 		Log(fmt.Sprint("Error decoding JSON:", err), ERROR)
-		return err
+		return []Fissure{}, false, err
 	}
 
 	data, err := GetRawFissures(f)
 	if err != nil {
-		return err
+		return []Fissure{}, false, err
 	}
 	var newFissures []Fissure = []Fissure{}
 	//检查已有裂缝
+	isNew := false
 	for _, fissure := range data {
 		if fissure.Active {
 			for _, subsfissure := range f.SubsFissures {
@@ -234,6 +241,7 @@ func CheckSubFissure(f Warframe) error {
 						if s.ID == fissure.ID {
 							newFissures = append(newFissures, fissure)
 							flag = true
+							isNew = true
 						}
 					}
 					if !flag {
@@ -260,7 +268,7 @@ func CheckSubFissure(f Warframe) error {
 	file, err = os.Create("exists.json")
 	if err != nil {
 		Log(fmt.Sprint("Error creating file:", err), ERROR)
-		return err
+		return []Fissure{}, false, err
 	}
 	defer file.Close()
 
@@ -270,10 +278,10 @@ func CheckSubFissure(f Warframe) error {
 	err = encoder.Encode(fissures)
 	if err != nil {
 		Log(fmt.Sprint("Error encoding JSON:", err), ERROR)
-		return err
+		return []Fissure{}, false, err
 	}
 
-	return nil
+	return fissures.Fissures, isNew, nil
 }
 
 func formatPrint(fissure Fissure) (string, error) {
