@@ -198,8 +198,8 @@ func SendSubsFissures(f Warframe) error {
 // 检查已有裂缝
 func CheckSubFissure(f Warframe) error {
 
-	type existsID struct {
-		ID []string `json:"id"`
+	type existsFissures struct {
+		Fissures []Fissure `json:"fissure"`
 	}
 
 	// 读取 已存在裂缝ID 文件
@@ -211,44 +211,44 @@ func CheckSubFissure(f Warframe) error {
 	defer file.Close()
 
 	// 创建一个结构体实例来存储读取的 JSON 数据
-	var ids existsID
+	var fissures existsFissures
 	decoder := json.NewDecoder(file)
-	err = decoder.Decode(&ids)
+	err = decoder.Decode(&fissures)
 	if err != nil {
 		Log(fmt.Sprint("Error decoding JSON:", err), ERROR)
 		return err
 	}
 
 	// 输出当前已存在的裂缝
-	for _, id := range ids.ID {
-		Log_INFO("当前已存在裂缝: " + id)
+	for _, fissure := range fissures.Fissures {
+		Log_INFO("当前已存在裂缝: " + fissure.ID)
 	}
 
 	data, err := GetRawFissures(f)
 	if err != nil {
 		return err
 	}
-	var newFissures []string = []string{}
+	var newFissures []Fissure = []Fissure{}
 	//检查已有裂缝
 	for _, fissure := range data {
 		if fissure.Active {
 			for _, subsfissure := range f.SubsFissures {
 				if (subsfissure.IsHard == fissure.IsHard || !subsfissure.IsHard) && (subsfissure.MissionType == fissure.MissionType || subsfissure.MissionType == "") && (subsfissure.Tier == fissure.Tier || subsfissure.Tier == "") {
 					flag := false
-					for _, s := range ids.ID {
-						if s == fissure.ID {
-							newFissures = append(newFissures, fissure.ID)
+					for _, s := range fissures.Fissures {
+						if s.ID == fissure.ID {
+							newFissures = append(newFissures, fissure)
 							flag = true
 						}
 					}
 					if !flag {
-						newFissures = append(newFissures, fissure.ID)
+						newFissures = append(newFissures, fissure)
 					}
 				}
 			}
 		}
 	}
-	ids.ID = newFissures
+	fissures.Fissures = newFissures
 	// 更新本地json文件
 	file, err = os.Create("exists.json")
 	if err != nil {
@@ -260,7 +260,7 @@ func CheckSubFissure(f Warframe) error {
 	// 使用JSON编码将数据写入文件
 	encoder := json.NewEncoder(file)
 	encoder.SetIndent("", "  ") // 美化输出
-	err = encoder.Encode(ids)
+	err = encoder.Encode(fissures)
 	if err != nil {
 		Log(fmt.Sprint("Error encoding JSON:", err), ERROR)
 		return err
