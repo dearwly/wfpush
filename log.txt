@@ -165,3 +165,5 @@
 [2025-02-01 22:46:09] [INFO] INFO: 虚空风暴 殲滅 Corpus 中纪 女娲之矿 (海王星比邻星域) 1h 24m 1s
 [2025-02-01 22:46:09] [INFO] INFO: 虚空风暴 殲滅 Corpus 后纪 蒲芦 (面纱) 1h 24m 1s
 [2025-02-01 22:46:10] [INFO] INFO: Email sent successfully!
+[2025-02-01 22:54:32] [INFO] INFO: Log initialized successfully.
+[2025-02-01 22:59:36] [INFO] INFO: 裂缝: 

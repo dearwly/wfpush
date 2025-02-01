@@ -253,6 +253,9 @@ func CheckSubsFissure(f Warframe) ([]Fissure, bool, error) {
 
 	// 输出已存在的裂缝
 	Log_INFO("裂缝: ")
+	if len(newFissures) == 0 {
+		Log_INFO("当前暂无订阅裂缝。")
+	}
 	for _, fissure := range fissures.Fissures {
 		texts, err := formatPrint(fissure)
 		if err != nil {
