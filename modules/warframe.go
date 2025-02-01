@@ -61,7 +61,7 @@ func GetFissuresWithRetry(f Warframe, maxRetries int, delay time.Duration) ([]by
 		res, err := client.Do(req)
 		if err != nil {
 			if attempt < maxRetries-1 {
-				Log(fmt.Sprintf("请求失败 (尝试 %d/%d): %v\n", attempt+1, maxRetries, err), ERROR)
+				Log(fmt.Sprintf("请求失败 (尝试 %d/%d): %v", attempt+1, maxRetries, err), ERROR)
 				time.Sleep(delay)
 				continue
 			}
@@ -71,7 +71,7 @@ func GetFissuresWithRetry(f Warframe, maxRetries int, delay time.Duration) ([]by
 
 		if res.StatusCode >= 400 && res.StatusCode < 600 {
 			if attempt < maxRetries-1 {
-				Log(fmt.Sprintf("请求失败 (状态码 %d) (尝试 %d/%d)\n", res.StatusCode, attempt+1, maxRetries), ERROR)
+				Log(fmt.Sprintf("请求失败 (状态码 %d) (尝试 %d/%d)", res.StatusCode, attempt+1, maxRetries), ERROR)
 				time.Sleep(delay)
 				continue
 			}
@@ -183,7 +183,7 @@ func SendSubsFissures(f Warframe) error {
 		return err
 	}
 	if isNew {
-		body := "您订阅的裂缝："
+		body := "您订阅的裂缝：\n"
 		for _, fissure := range fissures {
 			result, err := formatPrint(fissure)
 			if err != nil {
@@ -191,7 +191,7 @@ func SendSubsFissures(f Warframe) error {
 				Log(fmt.Sprint("Error: formatting fissure", err), ERROR)
 				continue
 			}
-			body += result + " n"
+			body += result + "\n"
 		}
 
 		Send_email(body)
@@ -211,7 +211,6 @@ func CheckSubsFissure(f Warframe) ([]Fissure, bool, error) {
 	// 读取 已存在裂缝ID 文件
 	file, err := os.Open("exists.json")
 	if err != nil {
-		Log(fmt.Sprint("Error opening file:", err), ERROR)
 		return []Fissure{}, false, err
 	}
 	defer file.Close()
@@ -221,7 +220,6 @@ func CheckSubsFissure(f Warframe) ([]Fissure, bool, error) {
 	decoder := json.NewDecoder(file)
 	err = decoder.Decode(&fissures)
 	if err != nil {
-		Log(fmt.Sprint("Error decoding JSON:", err), ERROR)
 		return []Fissure{}, false, err
 	}
 
@@ -241,11 +239,11 @@ func CheckSubsFissure(f Warframe) ([]Fissure, bool, error) {
 						if s.ID == fissure.ID {
 							newFissures = append(newFissures, fissure)
 							flag = true
-							isNew = true
 						}
 					}
 					if !flag {
 						newFissures = append(newFissures, fissure)
+						isNew = true
 					}
 				}
 			}

@@ -13,11 +13,15 @@ func Send_email(body string) {
 	password := "wly3369874152"             // 发件人邮箱的密码或App专用密码
 	recipient := "dearwangliyu@outlook.com" // 收件人邮箱
 
-	// 邮件内容
-	subject := "Warframe 小助手\n"
+	// 邮件主题
+	subject := "Warframe 小助手"
 
-	// 构建邮件内容
-	message := []byte(subject + "\n" + body)
+	// 构建邮件内容，确保头部和正文格式正确
+	message := []byte("Subject: " + subject + "\r\n" +
+		"From: " + sender + "\r\n" +
+		"To: " + recipient + "\r\n" +
+		"\r\n" + // 邮件头部和正文之间的空行
+		body)
 
 	// 使用 SSL/TLS 连接到邮件服务器
 	conn, err := tls.Dial("tcp", smtpServer+":"+port, &tls.Config{
