@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"time"
 	"wfpush/modules"
 )
 
@@ -30,26 +31,20 @@ func main() {
 		},
 	}
 
-	// // 创建一个每5分钟触发一次的 Ticker
-	// ticker := time.NewTicker(5 * time.Minute)
-	// defer ticker.Stop()
+	// 创建一个每5分钟触发一次的 Ticker
+	ticker := time.NewTicker(5 * time.Minute)
+	defer ticker.Stop()
 
-	// // 使用 goroutine 或循环来不断等待 Ticker 信号并调用函数
-	// for {
-	// 	select {
-	// 	case <-ticker.C: // 当 Ticker 发出信号时，执行函数
-	// 		err = modules.SendSubsFissures(warframe)
-	// 		if err != nil {
-	// 			// 处理错误
-	// 			modules.Log(fmt.Sprint("Error: ", err), modules.ERROR)
-	// 		}
-	// 	}
-	// }
-
-	err = modules.SendSubsFissures(warframe)
-	if err != nil {
-		// 处理错误
-		modules.Log(fmt.Sprint("Error: ", err), modules.ERROR)
+	// 使用 goroutine 或循环来不断等待 Ticker 信号并调用函数
+	for {
+		select {
+		case <-ticker.C: // 当 Ticker 发出信号时，执行函数
+			err = modules.SendSubsFissures(warframe)
+			if err != nil {
+				// 处理错误
+				modules.Log(fmt.Sprint("Error: ", err), modules.ERROR)
+			}
+		}
 	}
 
 }
