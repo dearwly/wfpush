@@ -41,13 +41,33 @@ const defaultConfigFileContent = `# Warframe 裂缝订阅助手 - 配置文件
 
 # 邮件通知功能配置
 email:
+  # 是否启用邮件发送功能。设置为 false 可关闭邮件，只在控制台打印日志。
+  # true: 启用 | false: 禁用
   enabled: true
+
+  # 邮件服务器 (SMTP) 地址。
+  # 常见邮箱的 SMTP 服务器地址:
+  #   - 163   邮箱: smtp.163.com
+  #   - QQ    邮箱: smtp.qq.com
+  #   - Gmail 邮箱: smtp.gmail.com
   smtp_server: "smtp.163.com"
+
+  # SMTP 服务器端口。通常，使用 SSL/TLS 加密的端口是 465。
   port: 465
+
+  # 您的发件人邮箱地址。
   sender: "your_email@163.com"
+
+  # 您的邮箱密码或 "应用专用授权码"。
+  # !!! 安全提示 !!!
+  # 为了安全，强烈建议使用邮箱服务商提供的 "应用专用授权码" 而不是您的邮箱主密码。
+  # 例如，163邮箱需要登录网页版，在设置中开启SMTP服务并生成授权码。
   password: "your_app_password"
+
+  # 收件人列表。您可以添加一个或多个邮箱地址。
   recipients:
     - "recipient1@example.com"
+    - "recipient2@example.com"
 
 # QQ 机器人推送配置
 qq:
@@ -73,15 +93,30 @@ qq:
       id: 987654321   # 替换为你的目标 QQ 号
 
 # 裂缝订阅列表
+# 在这里定义您感兴趣的裂缝类型。
+# 当符合以下任一条件的 *新* 裂缝出现时，您会收到通知。
 subscriptions:
+  # 示例 1: 订阅所有普通的“歼灭”任务
   - mission_type: "歼灭"
     is_hard: false
+
+  # 示例 2: 订阅所有普通的“捕获”任务
   - mission_type: "捕获"
     is_hard: false
+
+  # 示例 3: 订阅所有“钢铁之路”的“歼灭”任务
   - mission_type: "歼灭"
     is_hard: true
-  - mission_type: "捕获"
+
+  # 示例 4: 订阅所有“钢铁之路”的“生存”任务，并且纪元是“后纪”
+  - mission_type: "生存"
     is_hard: true
+    tier: "后纪"
+
+  # 字段说明:
+  #   mission_type (必需): 任务类型。例如: "歼灭", "捕获", "生存", "挖掘" 等。
+  #   is_hard (可选, 默认为 false): 是否为钢铁之路任务。true 或 false。
+  #   tier (可选, 默认为所有纪元): 遗物纪元。可选值: "古纪", "前纪", "中纪", "后纪", "安魂"。
 `
 
 // CreateDefaultConfig 创建一个带有注释的默认配置文件
