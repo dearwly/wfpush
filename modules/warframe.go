@@ -9,17 +9,17 @@ import (
 	"time"
 )
 
-var platform string = "pc" // Example platform
+var platform string = "pc"
 var params map[string]string = map[string]string{
 	"language": "zh",
 }
 
-// 订阅裂缝的结构体
+// 订阅裂缝的结构体 (添加 yaml 标签)
 type SubFissure struct {
-	MissionType string
-	IsHard      bool
-	Tier        string
-	Location    string
+	MissionType string `yaml:"mission_type"`
+	IsHard      bool   `yaml:"is_hard"`
+	Tier        string `yaml:"tier"`
+	Location    string `yaml:"location"`
 }
 
 // 主结构体
@@ -39,7 +39,7 @@ type Fissure struct {
 	IsStorm     bool   `json:"isStorm"`
 }
 
-// GetFissuresWithRetry fetches fissures with retry logic
+// ... GetFissuresWithRetry, GetRawFissures, GetFissures 函数保持不变 ...
 func GetFissuresWithRetry(f Warframe, maxRetries int, delay time.Duration) ([]byte, error) {
 	url := fmt.Sprintf("https://api.warframestat.us/%s/fissures", platform)
 	client := &http.Client{}
@@ -89,7 +89,6 @@ func GetFissuresWithRetry(f Warframe, maxRetries int, delay time.Duration) ([]by
 	return nil, fmt.Errorf("重试次数达到最大限制，退出。")
 }
 
-// 获取裂缝原始数据
 func GetRawFissures(f Warframe) ([]Fissure, error) {
 	// Get fissure data with retry
 	data, err := GetFissuresWithRetry(f, 9999, 2*time.Second)
@@ -106,7 +105,6 @@ func GetRawFissures(f Warframe) ([]Fissure, error) {
 	return fissures, err
 }
 
-// GetFissures retrieves fissure data and processes it based on type
 func GetFissures(f Warframe, type_ int) ([]map[string]string, error) {
 	// Get fissure data with retry
 	data, err := GetFissuresWithRetry(f, 9999, 2*time.Second)
@@ -173,31 +171,36 @@ func GetFissures(f Warframe, type_ int) ([]map[string]string, error) {
 	return dataList, nil
 }
 
-// 发送邮件
-func SendSubsFissures(f Warframe) error {
+// 修改函数签名以接收配置
+func SendSubsFissures(f Warframe, cfg *Config) error {
 	fissures, isNew, err := CheckSubsFissure(f)
 	if err != nil {
 		return err
 	}
-	if isNew {
-		body := "您订阅的裂缝：\n"
+
+	// 检查配置是否启用邮件以及是否有新裂缝
+	if cfg.Email.Enabled && isNew {
+		Log("New fissures found, sending email.", INFO)
+		body := "您订阅的裂缝已出现：\n\n"
 		for _, fissure := range fissures {
 			result, err := formatPrint(fissure)
 			if err != nil {
-				// 处理错误
-				Log(fmt.Sprint("Error: formatting fissure", err), ERROR)
+				Log(fmt.Sprint("Error formatting fissure: ", err), ERROR)
 				continue
 			}
 			body += result + "\n"
 		}
 
-		Send_email(body)
+		// 将配置传递给邮件发送函数
+		Send_email(body, cfg)
+	} else if !cfg.Email.Enabled {
+		Log("Email sending is disabled in config.", INFO)
 	}
 
 	return nil
 }
 
-// 检查已有裂缝
+// ... CheckSubsFissure 和 formatPrint 函数保持不变 ...
 func CheckSubsFissure(f Warframe) ([]Fissure, bool, error) {
 
 	// 当前存在的订阅裂缝
@@ -206,7 +209,7 @@ func CheckSubsFissure(f Warframe) ([]Fissure, bool, error) {
 	}
 
 	// 读取 已存在裂缝ID 文件
-	file, err := os.Open("exists.json")
+	file, err := os.Open("data.json")
 	if err != nil {
 		return []Fissure{}, false, err
 	}
@@ -225,29 +228,36 @@ func CheckSubsFissure(f Warframe) ([]Fissure, bool, error) {
 		return []Fissure{}, false, err
 	}
 	var newFissures []Fissure = []Fissure{}
+	var newSubscribedFissures []Fissure // 专门存放本次新出现的、且符合订阅的裂缝
 	//检查已有裂缝
 	isNew := false
-	for _, fissure := range data {
-		for _, subsfissure := range f.SubsFissures {
-			if (subsfissure.IsHard == fissure.IsHard) && (subsfissure.MissionType == fissure.MissionType || subsfissure.MissionType == "") && (subsfissure.Tier == fissure.Tier || subsfissure.Tier == "") {
-				flag := false
-				for _, s := range fissures.Fissures {
-					if s.ID == fissure.ID {
-						newFissures = append(newFissures, fissure)
-						flag = true
+	for _, currentFissure := range data {
+		for _, subFissure := range f.SubsFissures {
+			// 匹配订阅条件
+			if (subFissure.IsHard == currentFissure.IsHard) && (subFissure.MissionType == "" || subFissure.MissionType == currentFissure.MissionType) && (subFissure.Tier == "" || subFissure.Tier == currentFissure.Tier) {
+				isAlreadyKnown := false
+				for _, knownFissure := range fissures.Fissures {
+					if knownFissure.ID == currentFissure.ID {
+						isAlreadyKnown = true
+						break
 					}
 				}
-				if !flag {
-					newFissures = append(newFissures, fissure)
+
+				if !isAlreadyKnown {
 					isNew = true
+					newSubscribedFissures = append(newSubscribedFissures, currentFissure)
 				}
+				// 不管是不是新的，只要是当前存在的，都加入到 newFissures 用于更新 data.json
+				newFissures = append(newFissures, currentFissure)
+				break // 匹配到一个订阅就够了，避免重复添加
 			}
 		}
 	}
+
 	fissures.Fissures = newFissures
 
 	// 输出已存在的裂缝
-	Log_INFO("裂缝: ")
+	Log_INFO("当前符合订阅的裂缝: ")
 	if len(newFissures) == 0 {
 		Log_INFO("当前暂无订阅裂缝。")
 	}
@@ -261,7 +271,7 @@ func CheckSubsFissure(f Warframe) ([]Fissure, bool, error) {
 	}
 
 	// 更新本地json文件
-	file, err = os.Create("exists.json")
+	file, err = os.Create("data.json")
 	if err != nil {
 		Log(fmt.Sprint("Error creating file:", err), ERROR)
 		return []Fissure{}, false, err
@@ -277,7 +287,8 @@ func CheckSubsFissure(f Warframe) ([]Fissure, bool, error) {
 		return []Fissure{}, false, err
 	}
 
-	return fissures.Fissures, isNew, nil
+	// 返回新出现的裂缝列表
+	return newSubscribedFissures, isNew, nil
 }
 
 func formatPrint(fissure Fissure) (string, error) {

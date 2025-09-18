@@ -2,80 +2,93 @@ package modules
 
 import (
 	"crypto/tls"
+	"fmt"
 	"net/smtp"
+	"strconv"
+	"strings"
 )
 
-func Send_email(body string) {
-	// 邮件服务器配置
-	smtpServer := "smtp.163.com"
-	port := "465"                           // 使用 465 端口进行 SSL/TLS 加密连接
-	sender := "15906376758@163.com"         // 发件人邮箱
-	password := "wly3369874152"             // 发件人邮箱的密码或App专用密码
-	recipient := "dearwangliyu@outlook.com" // 收件人邮箱
+// 修改函数签名以接收配置
+func Send_email(body string, cfg *Config) {
+	// 从配置中获取邮件服务器信息
+	smtpServer := cfg.Email.SMTPServer
+	port := strconv.Itoa(cfg.Email.Port)
+	sender := cfg.Email.Sender
+	password := cfg.Email.Password
+	recipients := cfg.Email.Recipients
+
+	if len(recipients) == 0 {
+		Log("No recipients configured in config.yml. Email not sent.", WARNING)
+		return
+	}
 
 	// 邮件主题
-	subject := "Warframe 小助手"
+	subject := "Warframe 裂缝订阅通知"
 
-	// 构建邮件内容，确保头部和正文格式正确
+	// 构建邮件内容
+	// To 头部可以是逗号分隔的列表
 	message := []byte("Subject: " + subject + "\r\n" +
 		"From: " + sender + "\r\n" +
-		"To: " + recipient + "\r\n" +
-		"\r\n" + // 邮件头部和正文之间的空行
+		"To: " + strings.Join(recipients, ",") + "\r\n" +
+		"\r\n" +
 		body)
 
 	// 使用 SSL/TLS 连接到邮件服务器
 	conn, err := tls.Dial("tcp", smtpServer+":"+port, &tls.Config{
-		InsecureSkipVerify: true, // 如果证书无法验证，跳过验证（不推荐在生产环境中使用）
+		InsecureSkipVerify: true,
 		ServerName:         smtpServer,
 	})
 	if err != nil {
-		Log("Failed to connect to the server:", ERROR)
+		Log(fmt.Sprintf("Failed to connect to the server: %v", err), ERROR)
 		return
 	}
 
 	// 创建 SMTP 客户端
 	client, err := smtp.NewClient(conn, smtpServer)
 	if err != nil {
-		Log("Failed to create SMTP client:", ERROR)
+		Log(fmt.Sprintf("Failed to create SMTP client: %v", err), ERROR)
 		return
 	}
 
 	// 认证
 	auth := smtp.PlainAuth("", sender, password, smtpServer)
 	if err := client.Auth(auth); err != nil {
-		Log("Authentication failed:", ERROR)
+		Log(fmt.Sprintf("Authentication failed: %v", err), ERROR)
 		return
 	}
 
-	// 设置发件人和收件人
+	// 设置发件人
 	if err := client.Mail(sender); err != nil {
-		Log("Failed to set mail from:", ERROR)
+		Log(fmt.Sprintf("Failed to set mail from: %v", err), ERROR)
 		return
 	}
-	if err := client.Rcpt(recipient); err != nil {
-		Log("Failed to set recipient:", ERROR)
-		return
+
+	// 遍历并设置所有收件人
+	for _, recipient := range recipients {
+		if err := client.Rcpt(recipient); err != nil {
+			Log(fmt.Sprintf("Failed to set recipient %s: %v", recipient, err), WARNING)
+		}
 	}
 
 	// 发送邮件内容
 	writer, err := client.Data()
 	if err != nil {
-		Log("Failed to create writer:", ERROR)
+		Log(fmt.Sprintf("Failed to create writer: %v", err), ERROR)
 		return
 	}
 	_, err = writer.Write(message)
 	if err != nil {
-		Log("Failed to write message:", ERROR)
+		Log(fmt.Sprintf("Failed to write message: %v", err), ERROR)
 		return
 	}
 	err = writer.Close()
 	if err != nil {
-		Log("Failed to close writer:", ERROR)
+		Log(fmt.Sprintf("Failed to close writer: %v", err), ERROR)
 		return
 	}
 
 	// 关闭连接
 	client.Quit()
 
-	Log("Email sent successfully!", INFO)
+	Log(fmt.Sprintf("Email sent successfully to: %s", strings.Join(recipients, ", ")), INFO)
 }

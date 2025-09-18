@@ -235,3 +235,27 @@
 [2025-09-18 13:54:56] [INFO] INFO: 捕獲 Corpus 中纪 Galatea (海王星) 
 [2025-09-18 13:54:56] [INFO] INFO: 虚空风暴 殲滅 Corpus 古纪 虹桥回声 (金星比邻星域) 
 [2025-09-18 13:54:59] [INFO] INFO: Email sent successfully!
+[2025-09-18 14:15:09] [INFO] INFO: Log initialized successfully.
+[2025-09-18 14:15:09] [INFO] INFO: Performing initial check...
+[2025-09-18 14:15:09] [INFO] INFO: 当前符合订阅的裂缝: 
+[2025-09-18 14:15:09] [INFO] INFO: 钢铁之路 殲滅 Grineer 前纪 Telesto (土星) 
+[2025-09-18 14:15:09] [INFO] INFO: 捕獲 Corpus 前纪 Skyresh (火衛一) 
+[2025-09-18 14:15:09] [INFO] INFO: 殲滅 Crossfire 古纪 Ultor (火星) 
+[2025-09-18 14:15:09] [INFO] INFO: 殲滅 Orokin 后纪 Oxomoco (虚空) 
+[2025-09-18 14:15:09] [INFO] INFO: 捕獲 Infested 后纪 Isos (鬩神星) 
+[2025-09-18 14:15:09] [INFO] INFO: 钢铁之路 殲滅 Grineer 古纪 E Prime (地球) 
+[2025-09-18 14:15:09] [INFO] INFO: 捕獲 Corpus 中纪 Galatea (海王星) 
+[2025-09-18 14:15:09] [INFO] INFO: 虚空风暴 殲滅 Corpus 古纪 虹桥回声 (金星比邻星域) 
+[2025-09-18 14:15:51] [INFO] INFO: Log initialized successfully.
+[2025-09-18 14:15:51] [INFO] INFO: Performing initial check...
+[2025-09-18 14:15:51] [INFO] INFO: 当前符合订阅的裂缝: 
+[2025-09-18 14:15:51] [INFO] INFO: 钢铁之路 殲滅 Grineer 前纪 Telesto (土星) 
+[2025-09-18 14:15:51] [INFO] INFO: 捕獲 Corpus 前纪 Skyresh (火衛一) 
+[2025-09-18 14:15:51] [INFO] INFO: 殲滅 Crossfire 古纪 Ultor (火星) 
+[2025-09-18 14:15:51] [INFO] INFO: 殲滅 Orokin 后纪 Oxomoco (虚空) 
+[2025-09-18 14:15:51] [INFO] INFO: 捕獲 Infested 后纪 Isos (鬩神星) 
+[2025-09-18 14:15:51] [INFO] INFO: 钢铁之路 殲滅 Grineer 古纪 E Prime (地球) 
+[2025-09-18 14:15:51] [INFO] INFO: 捕獲 Corpus 中纪 Galatea (海王星) 
+[2025-09-18 14:15:51] [INFO] INFO: 虚空风暴 殲滅 Corpus 古纪 虹桥回声 (金星比邻星域) 
+[2025-09-18 14:15:51] [INFO] INFO: New fissures found, sending email.
+[2025-09-18 14:15:55] [INFO] INFO: Email sent successfully to: dearwangliyu@outlook.com

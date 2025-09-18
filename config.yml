@@ -1,0 +1,31 @@
+# 邮件功能配置
+email:
+  # 是否启用邮件发送功能 (true/false)
+  enabled: true
+  # SMTP 服务器地址
+  smtp_server: "smtp.163.com"
+  # SMTP 服务器端口 (SSL/TLS 通常是 465)
+  port: 465
+  # 发件人邮箱地址
+  sender: "15906376758@163.com"
+  # 发件人邮箱的授权码或密码
+  password: "wly3369874152"
+  # 收件人列表 (可以有多个)
+  recipients:
+    - "dearwangliyu@outlook.com"
+    # - "recipient2@gmail.com"
+
+# 裂缝订阅配置
+subscriptions:
+  - mission_type: "殲滅"
+    is_hard: false
+  - mission_type: "捕獲"
+    is_hard: false
+  - mission_type: "殲滅"
+    is_hard: true
+  - mission_type: "捕獲"
+    is_hard: true
+  # 你可以添加更多订阅条件，例如指定纪元
+  # - mission_type: "生存"
+  #   is_hard: true
+  #   tier: "中纪"
