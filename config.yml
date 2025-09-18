@@ -17,14 +17,17 @@ email:
 
 # 裂缝订阅配置
 subscriptions:
-  - mission_type: "殲滅"
+  - mission_type: "歼灭"
     is_hard: false
-  - mission_type: "捕獲"
+  - mission_type: "捕获"
     is_hard: false
-  - mission_type: "殲滅"
+  - mission_type: "歼灭"
     is_hard: true
-  - mission_type: "捕獲"
+  - mission_type: "捕获"
     is_hard: true
+  - mission_type: "生存"
+    is_hard: true
+    tier: "后纪" # 可选，支持 古纪, 前纪, 中纪, 后纪, 安魂
   # 你可以添加更多订阅条件，例如指定纪元
   # - mission_type: "生存"
   #   is_hard: true

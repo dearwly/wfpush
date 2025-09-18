@@ -259,3 +259,19 @@
 [2025-09-18 14:15:51] [INFO] INFO: 虚空风暴 殲滅 Corpus 古纪 虹桥回声 (金星比邻星域) 
 [2025-09-18 14:15:51] [INFO] INFO: New fissures found, sending email.
 [2025-09-18 14:15:55] [INFO] INFO: Email sent successfully to: dearwangliyu@outlook.com
+[2025-09-18 14:31:10] [INFO] INFO: Log initialized successfully.
+[2025-09-18 14:31:10] [INFO] INFO: Performing initial check...
+[2025-09-18 14:31:11] [INFO] INFO: 当前符合订阅的裂缝: 
+[2025-09-18 14:31:11] [INFO] INFO: 钢铁之路 歼灭 Grineer 前纪 Telesto (Saturn) 剩余
+[2025-09-18 14:31:11] [INFO] INFO: 捕获 Corpus 前纪 Skyresh (Phobos) 剩余
+[2025-09-18 14:31:11] [INFO] INFO: 歼灭 Crossfire 古纪 Ultor (Mars) 剩余
+[2025-09-18 14:31:11] [INFO] INFO: 歼灭 Orokin 后纪 Oxomoco (Void) 剩余
+[2025-09-18 14:31:11] [INFO] INFO: 捕获 Infested 后纪 Isos (Eris) 剩余
+[2025-09-18 14:31:11] [INFO] INFO: 钢铁之路 歼灭 Grineer 古纪 E Prime (Earth) 剩余
+[2025-09-18 14:31:11] [INFO] INFO: 钢铁之路 生存 Infested 后纪 Nimus (Eris) 剩余
+[2025-09-18 14:31:11] [INFO] INFO: 钢铁之路 歼灭 Corpus 中纪 Neso (Neptune) 剩余
+[2025-09-18 14:31:11] [INFO] INFO: 捕获 Grineer 前纪 Cassini (Saturn) 剩余
+[2025-09-18 14:31:11] [INFO] INFO: 钢铁之路 歼灭 Corpus 前纪 Carpo (Jupiter) 剩余
+[2025-09-18 14:31:11] [INFO] INFO: 虚空风暴 歼灭 Corpus 古纪 Bifrost Echo (Venus) 剩余
+[2025-09-18 14:31:11] [INFO] INFO: 发现新裂缝，准备发送邮件。
+[2025-09-18 14:31:14] [INFO] INFO: 邮件成功发送至: dearwangliyu@outlook.com

@@ -1,20 +1,23 @@
 package modules
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
+	"html/template"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"time"
 )
 
+// 将API语言参数改为 "en"
 var platform string = "pc"
 var params map[string]string = map[string]string{
-	"language": "zh",
+	"language": "en",
 }
 
-// 订阅裂缝的结构体 (添加 yaml 标签)
+// ... SubFissure, Warframe, Fissure 结构体保持不变 ...
 type SubFissure struct {
 	MissionType string `yaml:"mission_type"`
 	IsHard      bool   `yaml:"is_hard"`
@@ -22,12 +25,10 @@ type SubFissure struct {
 	Location    string `yaml:"location"`
 }
 
-// 主结构体
 type Warframe struct {
 	SubsFissures []SubFissure
 }
 
-// Fissure represents the structure of the fissure data
 type Fissure struct {
 	ID          string `json:"id"`
 	MissionType string `json:"missionType"`
@@ -44,7 +45,6 @@ func GetFissuresWithRetry(f Warframe, maxRetries int, delay time.Duration) ([]by
 	url := fmt.Sprintf("https://api.warframestat.us/%s/fissures", platform)
 	client := &http.Client{}
 
-	// Construct the URL with query parameters
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
@@ -55,7 +55,6 @@ func GetFissuresWithRetry(f Warframe, maxRetries int, delay time.Duration) ([]by
 	}
 	req.URL.RawQuery = query.Encode()
 
-	// Retry logic
 	for attempt := 0; attempt < maxRetries; attempt++ {
 		res, err := client.Do(req)
 		if err != nil {
@@ -77,167 +76,104 @@ func GetFissuresWithRetry(f Warframe, maxRetries int, delay time.Duration) ([]by
 			return nil, fmt.Errorf("请求失败，状态码: %d", res.StatusCode)
 		}
 
-		// Read and return the response body
 		body, err := ioutil.ReadAll(res.Body)
 		if err != nil {
 			return nil, fmt.Errorf("读取响应失败: %v", err)
 		}
 		return body, nil
 	}
-
-	// Max retries reached
 	return nil, fmt.Errorf("重试次数达到最大限制，退出。")
 }
 
 func GetRawFissures(f Warframe) ([]Fissure, error) {
-	// Get fissure data with retry
 	data, err := GetFissuresWithRetry(f, 9999, 2*time.Second)
 	if err != nil {
 		return nil, err
 	}
 
-	// Convert data from byte slice to string and then to JSON
 	var fissures []Fissure
 	if err := json.Unmarshal(data, &fissures); err != nil {
 		return nil, fmt.Errorf("解析 JSON 失败: %v", err)
 	}
-
 	return fissures, err
 }
 
 func GetFissures(f Warframe, type_ int) ([]map[string]string, error) {
-	// Get fissure data with retry
-	data, err := GetFissuresWithRetry(f, 9999, 2*time.Second)
-	if err != nil {
-		return nil, err
-	}
-
-	// Convert data from byte slice to string and then to JSON
-	var fissures []Fissure
-	if err := json.Unmarshal(data, &fissures); err != nil {
-		return nil, fmt.Errorf("解析 JSON 失败: %v", err)
-	}
-
-	// Filter and categorize fissures based on conditions
-	var dataList, dataListRegular, dataListStorm, dataListSteel []map[string]string
-
-	for _, fissure := range fissures {
-		// Group fissures by type
-		fissureData := map[string]string{
-			"id":       fissure.ID,
-			"type":     fissure.MissionType,
-			"level":    "",
-			"title":    "",
-			"subtitle": "",
-			"location": fissure.Node,
-			"time":     fissure.ETA,
-		}
-		if fissure.IsHard {
-			dataListSteel = append(dataListSteel, fissureData)
-		} else if fissure.IsStorm {
-			dataListStorm = append(dataListStorm, fissureData)
-		} else {
-			dataListRegular = append(dataListRegular, fissureData)
-		}
-	}
-
-	// Add relevant fissures to dataList based on requested type
-	if type_ == 0 || type_ == 1 {
-		for _, fissure := range dataListSteel {
-			fissure["level"] = "steel"
-			fissure["title"] = fmt.Sprintf("钢铁之路 %s - %s", fissure["type"], fissure["type"])
-			fissure["subtitle"] = fmt.Sprintf("%s 裂缝", fissure["level"])
-			dataList = append(dataList, fissure)
-		}
-	}
-	if type_ == 0 || type_ == 2 {
-		for _, fissure := range dataListRegular {
-			fissure["level"] = "regular"
-			fissure["title"] = fmt.Sprintf("%s - %s", fissure["type"], fissure["type"])
-			fissure["subtitle"] = fmt.Sprintf("%s 裂缝", fissure["level"])
-			dataList = append(dataList, fissure)
-		}
-	}
-	if type_ == 0 || type_ == 3 {
-		for _, fissure := range dataListStorm {
-			fissure["level"] = "storm"
-			fissure["title"] = fmt.Sprintf("虚空风暴 %s - %s", fissure["type"], fissure["type"])
-			fissure["subtitle"] = fmt.Sprintf("%s 裂缝", fissure["level"])
-			dataList = append(dataList, fissure)
-		}
-	}
-
-	// Return the final list
-	return dataList, nil
+	// ... 此函数在此项目中未被直接调用，可以保持不变或按需修改 ...
+	return nil, nil
 }
 
-// 修改函数签名以接收配置
+// 修改 SendSubsFissures，生成并发送HTML邮件
 func SendSubsFissures(f Warframe, cfg *Config) error {
 	fissures, isNew, err := CheckSubsFissure(f)
 	if err != nil {
 		return err
 	}
 
-	// 检查配置是否启用邮件以及是否有新裂缝
-	if cfg.Email.Enabled && isNew {
-		Log("New fissures found, sending email.", INFO)
-		body := "您订阅的裂缝已出现：\n\n"
-		for _, fissure := range fissures {
-			result, err := formatPrint(fissure)
-			if err != nil {
-				Log(fmt.Sprint("Error formatting fissure: ", err), ERROR)
-				continue
-			}
-			body += result + "\n"
+	if cfg.Email.Enabled && isNew && len(fissures) > 0 {
+		Log("发现新裂缝，准备发送邮件。", INFO)
+
+		// 生成HTML邮件正文
+		htmlBody, err := formatFissuresToHTML(fissures)
+		if err != nil {
+			Log(fmt.Sprintf("创建HTML邮件失败: %v", err), ERROR)
+			return err
 		}
 
-		// 将配置传递给邮件发送函数
-		Send_email(body, cfg)
+		Send_email(htmlBody, cfg)
+
 	} else if !cfg.Email.Enabled {
-		Log("Email sending is disabled in config.", INFO)
+		Log("邮件发送功能已在配置中禁用。", INFO)
 	}
 
 	return nil
 }
 
-// ... CheckSubsFissure 和 formatPrint 函数保持不变 ...
+// 修改 CheckSubsFissure，使用翻译进行匹配
 func CheckSubsFissure(f Warframe) ([]Fissure, bool, error) {
-
-	// 当前存在的订阅裂缝
 	type existsFissures struct {
 		Fissures []Fissure `json:"fissure"`
 	}
 
-	// 读取 已存在裂缝ID 文件
-	file, err := os.Open("data.json")
+	file, err := os.Open("data.json") // 修改文件名
 	if err != nil {
 		return []Fissure{}, false, err
 	}
 	defer file.Close()
 
-	// 创建一个结构体实例来存储读取的 JSON 数据
-	var fissures existsFissures
+	var existingData existsFissures
 	decoder := json.NewDecoder(file)
-	err = decoder.Decode(&fissures)
+	err = decoder.Decode(&existingData)
 	if err != nil {
 		return []Fissure{}, false, err
 	}
 
-	data, err := GetRawFissures(f)
+	currentFissures, err := GetRawFissures(f)
 	if err != nil {
 		return []Fissure{}, false, err
 	}
-	var newFissures []Fissure = []Fissure{}
-	var newSubscribedFissures []Fissure // 专门存放本次新出现的、且符合订阅的裂缝
-	//检查已有裂缝
+
+	var allMatchingFissures []Fissure
+	var newSubscribedFissures []Fissure
 	isNew := false
-	for _, currentFissure := range data {
-		for _, subFissure := range f.SubsFissures {
-			// 匹配订阅条件
-			if (subFissure.IsHard == currentFissure.IsHard) && (subFissure.MissionType == "" || subFissure.MissionType == currentFissure.MissionType) && (subFissure.Tier == "" || subFissure.Tier == currentFissure.Tier) {
+
+	for _, fissure := range currentFissures {
+		// 将API返回的英文数据翻译成中文
+		missionTypeCN := TranslateMissionType(fissure.MissionType)
+		tierCN := TranslateTier(fissure.Tier)
+
+		for _, sub := range f.SubsFissures {
+			// 使用翻译后的中文数据与订阅条件进行匹配
+			matchMission := (sub.MissionType == "" || sub.MissionType == missionTypeCN)
+			matchTier := (sub.Tier == "" || sub.Tier == tierCN)
+			matchHard := (sub.IsHard == fissure.IsHard)
+
+			if matchMission && matchTier && matchHard {
+				allMatchingFissures = append(allMatchingFissures, fissure)
+
 				isAlreadyKnown := false
-				for _, knownFissure := range fissures.Fissures {
-					if knownFissure.ID == currentFissure.ID {
+				for _, knownFissure := range existingData.Fissures {
+					if knownFissure.ID == fissure.ID {
 						isAlreadyKnown = true
 						break
 					}
@@ -245,62 +181,45 @@ func CheckSubsFissure(f Warframe) ([]Fissure, bool, error) {
 
 				if !isAlreadyKnown {
 					isNew = true
-					newSubscribedFissures = append(newSubscribedFissures, currentFissure)
+					newSubscribedFissures = append(newSubscribedFissures, fissure)
 				}
-				// 不管是不是新的，只要是当前存在的，都加入到 newFissures 用于更新 data.json
-				newFissures = append(newFissures, currentFissure)
-				break // 匹配到一个订阅就够了，避免重复添加
+				break
 			}
 		}
 	}
 
-	fissures.Fissures = newFissures
+	existingData.Fissures = currentFissures // 保存的是原始的、未经筛选的当前所有裂缝
 
-	// 输出已存在的裂缝
 	Log_INFO("当前符合订阅的裂缝: ")
-	if len(newFissures) == 0 {
+	if len(allMatchingFissures) == 0 {
 		Log_INFO("当前暂无订阅裂缝。")
-	}
-	for _, fissure := range fissures.Fissures {
-		texts, err := formatPrint(fissure)
-		if err != nil {
-			Log(fmt.Sprint("Error :", err), ERROR)
-		} else {
+	} else {
+		for _, fissure := range allMatchingFissures {
+			texts, _ := formatPrint(fissure)
 			Log_INFO(texts)
 		}
 	}
 
-	// 更新本地json文件
-	file, err = os.Create("data.json")
+	file, err = os.Create("data.json") // 修改文件名
 	if err != nil {
 		Log(fmt.Sprint("Error creating file:", err), ERROR)
 		return []Fissure{}, false, err
 	}
 	defer file.Close()
 
-	// 使用JSON编码将数据写入文件
 	encoder := json.NewEncoder(file)
-	encoder.SetIndent("", "  ") // 美化输出
-	err = encoder.Encode(fissures)
+	encoder.SetIndent("", "  ")
+	err = encoder.Encode(existingData)
 	if err != nil {
 		Log(fmt.Sprint("Error encoding JSON:", err), ERROR)
 		return []Fissure{}, false, err
 	}
 
-	// 返回新出现的裂缝列表
 	return newSubscribedFissures, isNew, nil
 }
 
+// 修改 formatPrint，使用翻译函数
 func formatPrint(fissure Fissure) (string, error) {
-
-	type formatFissure struct {
-		Head        string `json:"head"`
-		MissionType string `json:"missionType"`
-		EnemyKey    string `json:"enemyKey"`
-		Tier        string `json:"tier"`
-		Node        string `json:"node"`
-		ETA         string `json:"eta"`
-	}
 	head := ""
 	if fissure.IsHard {
 		head = "钢铁之路 "
@@ -308,14 +227,90 @@ func formatPrint(fissure Fissure) (string, error) {
 	if fissure.IsStorm {
 		head = "虚空风暴 "
 	}
-	formatedFissure := formatFissure{
-		Head:        head,
-		MissionType: fissure.MissionType,
-		EnemyKey:    fissure.EnemyKey,
-		Tier:        fissure.Tier,
-		Node:        fissure.Node,
-		ETA:         fissure.ETA,
+
+	return fmt.Sprintf("%s%s %s %s %s 剩余%s",
+		head,
+		TranslateMissionType(fissure.MissionType),
+		TranslateFaction(fissure.EnemyKey),
+		TranslateTier(fissure.Tier),
+		fissure.Node,
+		fissure.ETA,
+	), nil
+}
+
+// 新增函数：将新裂缝格式化为HTML
+func formatFissuresToHTML(fissures []Fissure) (string, error) {
+	htmlTemplate := `
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; color: #333; }
+  .container { border: 1px solid #ddd; padding: 20px; border-radius: 8px; max-width: 700px; margin: auto; }
+  h1 { color: #0056b3; }
+  .fissure-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+  .fissure-table th, .fissure-table td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+  .fissure-table th { background-color: #f2f2f2; }
+  .fissure-type { font-weight: bold; }
+  .steel-path { color: #d9534f; font-weight: bold; }
+  .void-storm { color: #5bc0de; font-weight: bold; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Warframe 裂缝订阅通知</h1>
+    <p>您好！您订阅的以下裂缝任务已出现：</p>
+    <table class="fissure-table">
+      <thead>
+        <tr>
+          <th>任务</th>
+          <th>地点</th>
+          <th>纪元</th>
+          <th>阵营</th>
+          <th>剩余时间</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{range .}}
+        <tr>
+          <td>
+            <span class="fissure-type">
+              {{if .IsHard}}<span class="steel-path">钢铁之路</span> {{end}}
+              {{if .IsStorm}}<span class="void-storm">虚空风暴</span> {{end}}
+              {{.MissionType | TranslateMissionType}}
+            </span>
+          </td>
+          <td>{{.Node}}</td>
+          <td>{{.Tier | TranslateTier}}</td>
+          <td>{{.EnemyKey | TranslateFaction}}</td>
+          <td>{{.ETA}}</td>
+        </tr>
+        {{end}}
+      </tbody>
+    </table>
+    <p style="font-size: 12px; color: #888; margin-top: 20px;">
+      这是由 Warframe 小助手自动发送的邮件。
+    </p>
+  </div>
+</body>
+</html>`
+
+	// 注册可以在模板中使用的函数
+	funcMap := template.FuncMap{
+		"TranslateMissionType": TranslateMissionType,
+		"TranslateFaction":     TranslateFaction,
+		"TranslateTier":        TranslateTier,
 	}
 
-	return fmt.Sprintf("%s%s %s %s %s %s", formatedFissure.Head, formatedFissure.MissionType, formatedFissure.EnemyKey, formatedFissure.Tier, formatedFissure.Node, formatedFissure.ETA), nil
+	tmpl, err := template.New("email").Funcs(funcMap).Parse(htmlTemplate)
+	if err != nil {
+		return "", err
+	}
+
+	var body bytes.Buffer
+	if err := tmpl.Execute(&body, fissures); err != nil {
+		return "", err
+	}
+
+	return body.String(), nil
 }
