@@ -24,10 +24,7 @@ run: build
 # 这是您需要的核心功能。
 clean:
 	@echo "Cleaning up generated files..."
-	# 使用 go clean 清理 Go 自己的构建产物
 	@go clean
-	# 使用 rm -f 强制删除我们程序运行时生成的文件
-	# "-f" 参数意味着 "force"，即如果文件不存在也不会报错。
 	@rm -f $(BINARY_NAME) config.yml data.json log.txt
 	@echo "Cleanup complete."
 

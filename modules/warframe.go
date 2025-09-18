@@ -134,19 +134,29 @@ func SendSubsFissures(f Warframe, cfg *Config) error {
 		return err
 	}
 
-	if cfg.Email.Enabled && isNew && len(fissures) > 0 {
-		Log("发现新裂缝，准备发送邮件。", INFO)
-
-		htmlBody, err := formatFissuresToHTML(fissures)
-		if err != nil {
-			Log(fmt.Sprintf("创建HTML邮件失败: %v", err), ERROR)
-			return err
+	// 如果有新裂缝且数量大于0
+	if isNew && len(fissures) > 0 {
+		// 并行处理邮件推送
+		if cfg.Email.Enabled {
+			Log("发现新裂缝，准备进行推送。", INFO)
+			htmlBody, err := formatFissuresToHTML(fissures)
+			if err != nil {
+				Log(fmt.Sprintf("创建HTML邮件失败: %v", err), ERROR)
+			} else {
+				Send_email(htmlBody, cfg)
+			}
 		}
 
-		Send_email(htmlBody, cfg)
+		// 并行处理QQ推送
+		if cfg.QQ.Enabled {
+			SendQQNotification(fissures, cfg)
+		}
 
-	} else if !cfg.Email.Enabled {
-		Log("邮件发送功能已在配置中禁用。", INFO)
+	} else {
+		// 只有在没有新裂缝时才打印此日志，避免冗余
+		if cfg.Email.Enabled == false && cfg.QQ.Enabled == false {
+			Log("所有推送功能均已在配置中禁用。", INFO)
+		}
 	}
 
 	return nil

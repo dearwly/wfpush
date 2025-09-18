@@ -64,6 +64,10 @@ func runService() {
 	}
 	defer modules.CloseLog()
 
+	if cfg.QQ.Enabled {
+		go modules.StartQQBotServer(cfg)
+	}
+
 	warframe := modules.Warframe{
 		SubsFissures: cfg.Subscriptions,
 	}
