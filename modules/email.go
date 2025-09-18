@@ -8,7 +8,66 @@ import (
 	"strings"
 )
 
-// 修改函数以支持HTML邮件
+// HTMLTemplate 存储了用于发送邮件的HTML模板
+const HTMLTemplate = `
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; margin: 20px; color: #333; background-color: #f9f9f9; }
+  .container { border: 1px solid #e0e0e0; padding: 25px; border-radius: 10px; max-width: 700px; margin: auto; background-color: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
+  h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+  .fissure-table { width: 100%; border-collapse: collapse; margin-top: 25px; }
+  .fissure-table th, .fissure-table td { border: 1px solid #e0e0e0; padding: 12px; text-align: left; }
+  .fissure-table th { background-color: #3498db; color: #fff; font-weight: bold; }
+  .fissure-table tr:nth-child(even) { background-color: #f2f8fc; }
+  .fissure-table tr:hover { background-color: #eaf4fb; }
+  .fissure-type { font-weight: bold; }
+  .steel-path { color: #c0392b; font-weight: bold; }
+  .void-storm { color: #8e44ad; font-weight: bold; }
+  .footer { font-size: 12px; color: #95a5a6; margin-top: 25px; text-align: center; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Warframe 裂缝订阅通知</h1>
+    <p>您好！您订阅的以下新裂缝任务已出现：</p>
+    <table class="fissure-table">
+      <thead>
+        <tr>
+          <th>任务</th>
+          <th>地点</th>
+          <th>纪元</th>
+          <th>阵营</th>
+          <th>剩余时间</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{range .}}
+        <tr>
+          <td>
+            <span class="fissure-type">
+              {{if .IsHard}}<span class="steel-path">钢铁之路</span> {{end}}
+              {{if .IsStorm}}<span class="void-storm">虚空风暴</span> {{end}}
+              {{.MissionType | TranslateMissionType}}
+            </span>
+          </td>
+          <td>{{.Node}}</td>
+          <td>{{.Tier | TranslateTier}}</td>
+          <td>{{.EnemyKey | TranslateFaction}}</td>
+          <td>{{.GetETA}}</td>
+        </tr>
+        {{end}}
+      </tbody>
+    </table>
+    <p class="footer">
+      由 Warframe 小助手自动发送
+    </p>
+  </div>
+</body>
+</html>`
+
+// Send_email 函数保持不变
 func Send_email(htmlBody string, cfg *Config) {
 	smtpServer := cfg.Email.SMTPServer
 	port := strconv.Itoa(cfg.Email.Port)
@@ -23,7 +82,6 @@ func Send_email(htmlBody string, cfg *Config) {
 
 	subject := "Warframe 裂缝订阅通知"
 
-	// 构建邮件头，关键是设置 Content-Type 为 text/html
 	headers := "From: " + sender + "\r\n" +
 		"To: " + strings.Join(recipients, ",") + "\r\n" +
 		"Subject: " + subject + "\r\n" +
@@ -32,7 +90,6 @@ func Send_email(htmlBody string, cfg *Config) {
 
 	message := []byte(headers + "\r\n" + htmlBody)
 
-	// ... 后续的 SMTP 连接和发送逻辑保持不变 ...
 	conn, err := tls.Dial("tcp", smtpServer+":"+port, &tls.Config{
 		InsecureSkipVerify: true,
 		ServerName:         smtpServer,

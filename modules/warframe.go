@@ -11,13 +11,11 @@ import (
 	"time"
 )
 
-// 将API语言参数改为 "en"
 var platform string = "pc"
 var params map[string]string = map[string]string{
 	"language": "en",
 }
 
-// ... SubFissure, Warframe, Fissure 结构体保持不变 ...
 type SubFissure struct {
 	MissionType string `yaml:"mission_type"`
 	IsHard      bool   `yaml:"is_hard"`
@@ -29,18 +27,55 @@ type Warframe struct {
 	SubsFissures []SubFissure
 }
 
+// Fissure 结构体修改：新增 Activation 和 Expiry 字段
 type Fissure struct {
 	ID          string `json:"id"`
+	Activation  string `json:"activation"` // 新增
+	Expiry      string `json:"expiry"`     // 新增
+	Node        string `json:"node"`
 	MissionType string `json:"missionType"`
 	EnemyKey    string `json:"enemyKey"`
 	Tier        string `json:"tier"`
-	Node        string `json:"node"`
-	ETA         string `json:"eta"`
+	ETA         string `json:"eta"` // 保留，优先使用
 	IsHard      bool   `json:"isHard"`
 	IsStorm     bool   `json:"isStorm"`
 }
 
-// ... GetFissuresWithRetry, GetRawFissures, GetFissures 函数保持不变 ...
+// 新增方法：为 Fissure 结构体计算或获取剩余时间
+func (f *Fissure) GetETA() string {
+	// 优先使用API直接提供的eta
+	if f.ETA != "" {
+		return f.ETA
+	}
+
+	// 如果eta为空，则通过expiry计算
+	if f.Expiry == "" {
+		return "未知"
+	}
+
+	expiryTime, err := time.Parse(time.RFC3339Nano, f.Expiry)
+	if err != nil {
+		return "解析时间失败"
+	}
+
+	remaining := time.Until(expiryTime)
+
+	if remaining <= 0 {
+		return "已结束"
+	}
+
+	// 格式化为 "Xm Ys" 或 "Hh Xm Ys" 的形式
+	hours := int(remaining.Hours())
+	minutes := int(remaining.Minutes()) % 60
+	seconds := int(remaining.Seconds()) % 60
+
+	if hours > 0 {
+		return fmt.Sprintf("%dh %dm %ds", hours, minutes, seconds)
+	}
+	return fmt.Sprintf("%dm %ds", minutes, seconds)
+}
+
+// ... GetFissuresWithRetry, GetRawFissures 保持不变 ...
 func GetFissuresWithRetry(f Warframe, maxRetries int, delay time.Duration) ([]byte, error) {
 	url := fmt.Sprintf("https://api.warframestat.us/%s/fissures", platform)
 	client := &http.Client{}
@@ -98,12 +133,6 @@ func GetRawFissures(f Warframe) ([]Fissure, error) {
 	return fissures, err
 }
 
-func GetFissures(f Warframe, type_ int) ([]map[string]string, error) {
-	// ... 此函数在此项目中未被直接调用，可以保持不变或按需修改 ...
-	return nil, nil
-}
-
-// 修改 SendSubsFissures，生成并发送HTML邮件
 func SendSubsFissures(f Warframe, cfg *Config) error {
 	fissures, isNew, err := CheckSubsFissure(f)
 	if err != nil {
@@ -113,7 +142,6 @@ func SendSubsFissures(f Warframe, cfg *Config) error {
 	if cfg.Email.Enabled && isNew && len(fissures) > 0 {
 		Log("发现新裂缝，准备发送邮件。", INFO)
 
-		// 生成HTML邮件正文
 		htmlBody, err := formatFissuresToHTML(fissures)
 		if err != nil {
 			Log(fmt.Sprintf("创建HTML邮件失败: %v", err), ERROR)
@@ -129,13 +157,13 @@ func SendSubsFissures(f Warframe, cfg *Config) error {
 	return nil
 }
 
-// 修改 CheckSubsFissure，使用翻译进行匹配
+// CheckSubsFissure 保持不变
 func CheckSubsFissure(f Warframe) ([]Fissure, bool, error) {
 	type existsFissures struct {
 		Fissures []Fissure `json:"fissure"`
 	}
 
-	file, err := os.Open("data.json") // 修改文件名
+	file, err := os.Open("data.json")
 	if err != nil {
 		return []Fissure{}, false, err
 	}
@@ -158,12 +186,10 @@ func CheckSubsFissure(f Warframe) ([]Fissure, bool, error) {
 	isNew := false
 
 	for _, fissure := range currentFissures {
-		// 将API返回的英文数据翻译成中文
 		missionTypeCN := TranslateMissionType(fissure.MissionType)
 		tierCN := TranslateTier(fissure.Tier)
 
 		for _, sub := range f.SubsFissures {
-			// 使用翻译后的中文数据与订阅条件进行匹配
 			matchMission := (sub.MissionType == "" || sub.MissionType == missionTypeCN)
 			matchTier := (sub.Tier == "" || sub.Tier == tierCN)
 			matchHard := (sub.IsHard == fissure.IsHard)
@@ -188,7 +214,7 @@ func CheckSubsFissure(f Warframe) ([]Fissure, bool, error) {
 		}
 	}
 
-	existingData.Fissures = currentFissures // 保存的是原始的、未经筛选的当前所有裂缝
+	existingData.Fissures = currentFissures
 
 	Log_INFO("当前符合订阅的裂缝: ")
 	if len(allMatchingFissures) == 0 {
@@ -200,7 +226,7 @@ func CheckSubsFissure(f Warframe) ([]Fissure, bool, error) {
 		}
 	}
 
-	file, err = os.Create("data.json") // 修改文件名
+	file, err = os.Create("data.json")
 	if err != nil {
 		Log(fmt.Sprint("Error creating file:", err), ERROR)
 		return []Fissure{}, false, err
@@ -218,7 +244,7 @@ func CheckSubsFissure(f Warframe) ([]Fissure, bool, error) {
 	return newSubscribedFissures, isNew, nil
 }
 
-// 修改 formatPrint，使用翻译函数
+// formatPrint 修改：使用新的 GetETA 方法
 func formatPrint(fissure Fissure) (string, error) {
 	head := ""
 	if fissure.IsHard {
@@ -234,75 +260,20 @@ func formatPrint(fissure Fissure) (string, error) {
 		TranslateFaction(fissure.EnemyKey),
 		TranslateTier(fissure.Tier),
 		fissure.Node,
-		fissure.ETA,
+		fissure.GetETA(), // 修改
 	), nil
 }
 
-// 新增函数：将新裂缝格式化为HTML
+// formatFissuresToHTML 修改：使用从 email.go 导入的模板
 func formatFissuresToHTML(fissures []Fissure) (string, error) {
-	htmlTemplate := `
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-  body { font-family: Arial, sans-serif; margin: 20px; color: #333; }
-  .container { border: 1px solid #ddd; padding: 20px; border-radius: 8px; max-width: 700px; margin: auto; }
-  h1 { color: #0056b3; }
-  .fissure-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-  .fissure-table th, .fissure-table td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-  .fissure-table th { background-color: #f2f2f2; }
-  .fissure-type { font-weight: bold; }
-  .steel-path { color: #d9534f; font-weight: bold; }
-  .void-storm { color: #5bc0de; font-weight: bold; }
-</style>
-</head>
-<body>
-  <div class="container">
-    <h1>Warframe 裂缝订阅通知</h1>
-    <p>您好！您订阅的以下裂缝任务已出现：</p>
-    <table class="fissure-table">
-      <thead>
-        <tr>
-          <th>任务</th>
-          <th>地点</th>
-          <th>纪元</th>
-          <th>阵营</th>
-          <th>剩余时间</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{range .}}
-        <tr>
-          <td>
-            <span class="fissure-type">
-              {{if .IsHard}}<span class="steel-path">钢铁之路</span> {{end}}
-              {{if .IsStorm}}<span class="void-storm">虚空风暴</span> {{end}}
-              {{.MissionType | TranslateMissionType}}
-            </span>
-          </td>
-          <td>{{.Node}}</td>
-          <td>{{.Tier | TranslateTier}}</td>
-          <td>{{.EnemyKey | TranslateFaction}}</td>
-          <td>{{.ETA}}</td>
-        </tr>
-        {{end}}
-      </tbody>
-    </table>
-    <p style="font-size: 12px; color: #888; margin-top: 20px;">
-      这是由 Warframe 小助手自动发送的邮件。
-    </p>
-  </div>
-</body>
-</html>`
-
-	// 注册可以在模板中使用的函数
 	funcMap := template.FuncMap{
 		"TranslateMissionType": TranslateMissionType,
 		"TranslateFaction":     TranslateFaction,
 		"TranslateTier":        TranslateTier,
 	}
 
-	tmpl, err := template.New("email").Funcs(funcMap).Parse(htmlTemplate)
+	// 使用从 email.go 导出的 HTMLTemplate 变量
+	tmpl, err := template.New("email").Funcs(funcMap).Parse(HTMLTemplate)
 	if err != nil {
 		return "", err
 	}
