@@ -312,3 +312,15 @@
 [2025-09-18 14:56:56] [INFO] INFO: 发现新裂缝，准备发送邮件。
 [2025-09-18 14:56:59] [INFO] INFO: 邮件成功发送至: dearwangliyu@outlook.com
 [2025-09-18 14:56:59] [INFO] INFO: 服务已启动，每5分钟检查一次裂缝更新。
+[2025-09-18 16:13:01] [INFO] INFO: Log initialized successfully.
+[2025-09-18 16:13:01] [INFO] INFO: 正在执行首次裂缝检查...
+[2025-09-18 16:13:02] [INFO] INFO: 当前符合订阅的裂缝: 
+[2025-09-18 16:13:02] [INFO] INFO: 捕获 Grineer 前纪 Cassini (土星) 剩余7分 6秒
+[2025-09-18 16:13:02] [INFO] INFO: 钢铁之路 歼灭 Infested 后纪 Saxis (阋神星) 剩余36分 25秒
+[2025-09-18 16:13:02] [INFO] INFO: 钢铁之路 歼灭 Orokin 中纪 Oxomoco (虚空) 剩余1时 4分 46秒
+[2025-09-18 16:13:02] [INFO] INFO: 虚空风暴 歼灭 Corpus 中纪 Nu-gua Mines (海王星) 剩余56分 58秒
+[2025-09-18 16:13:02] [INFO] INFO: 虚空风暴 歼灭 Corpus 后纪 Seven Sirens (冥王星) 剩余56分 58秒
+[2025-09-18 16:13:02] [INFO] INFO: 虚空风暴 歼灭 Corpus 后纪 Calabash (Veil) 剩余56分 58秒
+[2025-09-18 16:13:02] [INFO] INFO: 发现新裂缝，准备发送邮件。
+[2025-09-18 16:13:07] [INFO] INFO: 邮件成功发送至: dearwangliyu@outlook.com
+[2025-09-18 16:13:07] [INFO] INFO: 服务已启动，每5分钟检查一次裂缝更新。

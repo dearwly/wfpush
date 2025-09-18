@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-const configPath = "config.yml"
+var configPath = GetAbsPath("config.yml")
 
 // ListSubscriptions 列出当前配置文件中的所有订阅
 func ListSubscriptions() {

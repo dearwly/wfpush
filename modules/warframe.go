@@ -11,7 +11,8 @@ import (
 	"time"
 )
 
-// ... platform, params, SubFissure, Warframe 保持不变 ...
+// ... platform, params, SubFissure, Warframe ...
+var dataPath = GetAbsPath("data.json")
 var platform string = "pc"
 var params map[string]string = map[string]string{
 	"language": "en",
@@ -157,7 +158,7 @@ func CheckSubsFissure(f Warframe) ([]Fissure, bool, error) {
 		Fissures []Fissure `json:"fissure"`
 	}
 
-	file, err := os.Open("data.json")
+	file, err := os.Open(dataPath)
 	if err != nil {
 		return []Fissure{}, false, err
 	}
@@ -220,7 +221,7 @@ func CheckSubsFissure(f Warframe) ([]Fissure, bool, error) {
 		}
 	}
 
-	file, err = os.Create("data.json")
+	file, err = os.Create(dataPath)
 	if err != nil {
 		Log(fmt.Sprint("Error creating file:", err), ERROR)
 		return []Fissure{}, false, err

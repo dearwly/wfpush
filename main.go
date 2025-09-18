@@ -9,7 +9,9 @@ import (
 	"wfpush/modules"
 )
 
-const configPath = "config.yml"
+var configPath = modules.GetAbsPath("config.yml")
+var dataPath = modules.GetAbsPath("data.json")
+var logPath = modules.GetAbsPath("log.txt")
 
 func main() {
 	// 如果用户输入了命令行参数，则执行指令模式
@@ -105,15 +107,15 @@ func printHelp() {
 
 // initialData 函数保持不变
 func initialData() error {
-	err := modules.InitLog("log.txt")
+	err := modules.InitLog(logPath)
 	if err != nil {
 		return err
 	}
-	if _, err := os.Stat("data.json"); os.IsNotExist(err) {
+	if _, err := os.Stat(dataPath); os.IsNotExist(err) {
 		initialData := map[string][]modules.Fissure{
 			"fissure": {},
 		}
-		file, err := os.Create("data.json")
+		file, err := os.Create(dataPath)
 		if err != nil {
 			return err
 		}
