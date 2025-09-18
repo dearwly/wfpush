@@ -30,6 +30,7 @@ type Config struct {
 			Type string `yaml:"type"`
 			ID   string `yaml:"id"`
 		} `yaml:"push_targets"`
+		Masters []string `yaml:"masters"`
 	} `yaml:"qq"`
 
 	Subscriptions []SubFissure `yaml:"subscriptions"`
@@ -81,6 +82,11 @@ qq:
     host: "0.0.0.0"
     # 监听的端口。确保这个端口没有被其他程序占用。
     port: 8088
+
+  # 主人列表。只有这些 QQ 号的用户可以通过私聊命令管理订阅。
+  masters:
+    - "123456789"  # 替换为你的 QQ 号
+    - "987654321"  # 你可以添加多个主人
 
   # 推送目标列表。你可以指定多个群组和/或个人。
   push_targets:

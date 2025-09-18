@@ -25,24 +25,30 @@ func handleCommand() {
 	command := os.Args[1]
 	args := os.Args[2:]
 
+	// --- 核心修改部分 ---
+	// 我们现在捕获指令返回的字符串，并将其打印出来
 	switch command {
 	case "list":
-		modules.ListSubscriptions()
+		result, _ := modules.ListSubscriptions()
+		fmt.Println(result)
 	case "add":
-		modules.AddSubscription(args)
+		result, _ := modules.AddSubscription(args)
+		fmt.Println(result)
 	case "delete":
 		if len(args) != 1 {
 			fmt.Println("用法: delete <索引>")
 			fmt.Println("使用 'list' 命令查看订阅及其索引。")
 			return
 		}
-		modules.DeleteSubscription(args[0])
+		result, _ := modules.DeleteSubscription(args[0])
+		fmt.Println(result)
 	case "help":
 		printHelp()
 	default:
 		fmt.Printf("未知指令: '%s'\n", command)
 		printHelp()
 	}
+	// --- 修改结束 ---
 }
 
 // runService 启动持续监控裂缝的服务
