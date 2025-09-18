@@ -12,7 +12,6 @@ import (
 )
 
 // ... platform, params, SubFissure, Warframe ...
-var dataPath = GetAbsPath("data.json")
 var platform string = "pc"
 var params map[string]string = map[string]string{
 	"language": "en",
@@ -158,7 +157,7 @@ func CheckSubsFissure(f Warframe) ([]Fissure, bool, error) {
 		Fissures []Fissure `json:"fissure"`
 	}
 
-	file, err := os.Open(dataPath)
+	file, err := os.Open(GetAbsPath("data.json"))
 	if err != nil {
 		return []Fissure{}, false, err
 	}
@@ -221,7 +220,7 @@ func CheckSubsFissure(f Warframe) ([]Fissure, bool, error) {
 		}
 	}
 
-	file, err = os.Create(dataPath)
+	file, err = os.Create(GetAbsPath("data.json"))
 	if err != nil {
 		Log(fmt.Sprint("Error creating file:", err), ERROR)
 		return []Fissure{}, false, err

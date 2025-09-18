@@ -9,10 +9,6 @@ import (
 	"wfpush/modules"
 )
 
-var configPath = modules.GetAbsPath("config.yml")
-var dataPath = modules.GetAbsPath("data.json")
-var logPath = modules.GetAbsPath("log.txt")
-
 func main() {
 	// 如果用户输入了命令行参数，则执行指令模式
 	if len(os.Args) > 1 {
@@ -52,7 +48,7 @@ func handleCommand() {
 // runService 启动持续监控裂缝的服务
 func runService() {
 	fmt.Println("启动裂缝订阅监控服务...")
-	cfg, err := modules.LoadConfig(configPath)
+	cfg, err := modules.LoadConfig(modules.GetAbsPath("config.yml"))
 	if err != nil {
 		fmt.Println("错误:", err)
 		// 如果是初次创建文件导致的错误，提示后直接退出
@@ -107,15 +103,15 @@ func printHelp() {
 
 // initialData 函数保持不变
 func initialData() error {
-	err := modules.InitLog(logPath)
+	err := modules.InitLog(modules.GetAbsPath("log.txt"))
 	if err != nil {
 		return err
 	}
-	if _, err := os.Stat(dataPath); os.IsNotExist(err) {
+	if _, err := os.Stat(modules.GetAbsPath("data.json")); os.IsNotExist(err) {
 		initialData := map[string][]modules.Fissure{
 			"fissure": {},
 		}
-		file, err := os.Create(dataPath)
+		file, err := os.Create(modules.GetAbsPath("data.json"))
 		if err != nil {
 			return err
 		}

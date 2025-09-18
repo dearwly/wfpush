@@ -6,13 +6,11 @@ import (
 	"strings"
 )
 
-var configPath = GetAbsPath("config.yml")
-
 // ListSubscriptions 列出当前配置文件中的所有订阅
 func ListSubscriptions() {
-	cfg, err := LoadConfig(configPath)
+	cfg, err := LoadConfig(GetAbsPath("config.yml"))
 	if err != nil {
-		fmt.Printf("错误：无法加载配置文件 '%s': %v\n", configPath, err)
+		fmt.Printf("错误：无法加载配置文件 '%s': %v\n", GetAbsPath("config.yml"), err)
 		return
 	}
 
@@ -76,15 +74,15 @@ func AddSubscription(args []string) {
 		}
 	}
 
-	cfg, err := LoadConfig(configPath)
+	cfg, err := LoadConfig(GetAbsPath("config.yml"))
 	if err != nil {
-		fmt.Printf("错误：无法加载配置文件 '%s': %v\n", configPath, err)
+		fmt.Printf("错误：无法加载配置文件 '%s': %v\n", GetAbsPath("config.yml"), err)
 		return
 	}
 
 	cfg.Subscriptions = append(cfg.Subscriptions, newSub)
 
-	if err := SaveConfig(configPath, cfg); err != nil {
+	if err := SaveConfig(GetAbsPath("config.yml"), cfg); err != nil {
 		fmt.Printf("错误：无法保存配置: %v\n", err)
 		return
 	}
@@ -102,9 +100,9 @@ func DeleteSubscription(indexStr string) {
 		return
 	}
 
-	cfg, err := LoadConfig(configPath)
+	cfg, err := LoadConfig(GetAbsPath("config.yml"))
 	if err != nil {
-		fmt.Printf("错误：无法加载配置文件 '%s': %v\n", configPath, err)
+		fmt.Printf("错误：无法加载配置文件 '%s': %v\n", GetAbsPath("config.yml"), err)
 		return
 	}
 
@@ -119,7 +117,7 @@ func DeleteSubscription(indexStr string) {
 	removedSub := cfg.Subscriptions[removeIndex]
 	cfg.Subscriptions = append(cfg.Subscriptions[:removeIndex], cfg.Subscriptions[removeIndex+1:]...)
 
-	if err := SaveConfig(configPath, cfg); err != nil {
+	if err := SaveConfig(GetAbsPath("config.yml"), cfg); err != nil {
 		fmt.Printf("错误：无法保存配置: %v\n", err)
 		return
 	}
