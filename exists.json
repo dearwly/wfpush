@@ -1,3 +1,84 @@
 {
-  "fissure": []
+  "fissure": [
+    {
+      "id": "68cb53027f5c83e4f689b03e",
+      "missionType": "殲滅",
+      "enemyKey": "Grineer",
+      "tier": "前纪",
+      "node": "Telesto (土星)",
+      "eta": "",
+      "isHard": true,
+      "isStorm": false
+    },
+    {
+      "id": "68cb54a61348cd86f189b03e",
+      "missionType": "捕獲",
+      "enemyKey": "Corpus",
+      "tier": "前纪",
+      "node": "Skyresh (火衛一)",
+      "eta": "",
+      "isHard": false,
+      "isStorm": false
+    },
+    {
+      "id": "68cb54e230e34c9af189b040",
+      "missionType": "殲滅",
+      "enemyKey": "Crossfire",
+      "tier": "古纪",
+      "node": "Ultor (火星)",
+      "eta": "",
+      "isHard": false,
+      "isStorm": false
+    },
+    {
+      "id": "68cb57ee21f0d4be6089b03e",
+      "missionType": "殲滅",
+      "enemyKey": "Orokin",
+      "tier": "后纪",
+      "node": "Oxomoco (虚空)",
+      "eta": "",
+      "isHard": false,
+      "isStorm": false
+    },
+    {
+      "id": "68cb57ee21f0d4be6089b03f",
+      "missionType": "捕獲",
+      "enemyKey": "Infested",
+      "tier": "后纪",
+      "node": "Isos (鬩神星)",
+      "eta": "",
+      "isHard": false,
+      "isStorm": false
+    },
+    {
+      "id": "68cb582a4d7d117eb989b03f",
+      "missionType": "殲滅",
+      "enemyKey": "Grineer",
+      "tier": "古纪",
+      "node": "E Prime (地球)",
+      "eta": "",
+      "isHard": true,
+      "isStorm": false
+    },
+    {
+      "id": "68cb5a82d21c7f181a89b040",
+      "missionType": "捕獲",
+      "enemyKey": "Corpus",
+      "tier": "中纪",
+      "node": "Galatea (海王星)",
+      "eta": "",
+      "isHard": false,
+      "isStorm": false
+    },
+    {
+      "id": "68cb54e2ef8830dbbb89b03e",
+      "missionType": "殲滅",
+      "enemyKey": "Corpus",
+      "tier": "古纪",
+      "node": "虹桥回声 (金星比邻星域)",
+      "eta": "",
+      "isHard": false,
+      "isStorm": true
+    }
+  ]
 }

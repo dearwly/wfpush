@@ -37,7 +37,6 @@ type Fissure struct {
 	ETA         string `json:"eta"`
 	IsHard      bool   `json:"isHard"`
 	IsStorm     bool   `json:"isStorm"`
-	Active      bool   `json:"active"`
 }
 
 // GetFissuresWithRetry fetches fissures with retry logic
@@ -125,24 +124,22 @@ func GetFissures(f Warframe, type_ int) ([]map[string]string, error) {
 	var dataList, dataListRegular, dataListStorm, dataListSteel []map[string]string
 
 	for _, fissure := range fissures {
-		if fissure.Active {
-			// Group fissures by type
-			fissureData := map[string]string{
-				"id":       fissure.ID,
-				"type":     fissure.MissionType,
-				"level":    "",
-				"title":    "",
-				"subtitle": "",
-				"location": fissure.Node,
-				"time":     fissure.ETA,
-			}
-			if fissure.IsHard {
-				dataListSteel = append(dataListSteel, fissureData)
-			} else if fissure.IsStorm {
-				dataListStorm = append(dataListStorm, fissureData)
-			} else {
-				dataListRegular = append(dataListRegular, fissureData)
-			}
+		// Group fissures by type
+		fissureData := map[string]string{
+			"id":       fissure.ID,
+			"type":     fissure.MissionType,
+			"level":    "",
+			"title":    "",
+			"subtitle": "",
+			"location": fissure.Node,
+			"time":     fissure.ETA,
+		}
+		if fissure.IsHard {
+			dataListSteel = append(dataListSteel, fissureData)
+		} else if fissure.IsStorm {
+			dataListStorm = append(dataListStorm, fissureData)
+		} else {
+			dataListRegular = append(dataListRegular, fissureData)
 		}
 	}
 
@@ -231,20 +228,18 @@ func CheckSubsFissure(f Warframe) ([]Fissure, bool, error) {
 	//检查已有裂缝
 	isNew := false
 	for _, fissure := range data {
-		if fissure.Active {
-			for _, subsfissure := range f.SubsFissures {
-				if (subsfissure.IsHard == fissure.IsHard || !subsfissure.IsHard) && (subsfissure.MissionType == fissure.MissionType || subsfissure.MissionType == "") && (subsfissure.Tier == fissure.Tier || subsfissure.Tier == "") {
-					flag := false
-					for _, s := range fissures.Fissures {
-						if s.ID == fissure.ID {
-							newFissures = append(newFissures, fissure)
-							flag = true
-						}
-					}
-					if !flag {
+		for _, subsfissure := range f.SubsFissures {
+			if (subsfissure.IsHard == fissure.IsHard) && (subsfissure.MissionType == fissure.MissionType || subsfissure.MissionType == "") && (subsfissure.Tier == fissure.Tier || subsfissure.Tier == "") {
+				flag := false
+				for _, s := range fissures.Fissures {
+					if s.ID == fissure.ID {
 						newFissures = append(newFissures, fissure)
-						isNew = true
+						flag = true
 					}
+				}
+				if !flag {
+					newFissures = append(newFissures, fissure)
+					isNew = true
 				}
 			}
 		}

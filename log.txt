@@ -167,3 +167,71 @@
 [2025-02-01 22:46:10] [INFO] INFO: Email sent successfully!
 [2025-02-01 22:54:32] [INFO] INFO: Log initialized successfully.
 [2025-02-01 22:59:36] [INFO] INFO: 裂缝: 
+[2025-03-13 17:26:05] [INFO] INFO: Log initialized successfully.
+[2025-03-13 17:27:24] [INFO] INFO: Log initialized successfully.
+[2025-03-13 17:32:26] [INFO] INFO: 裂缝: 
+[2025-03-13 17:32:26] [INFO] INFO: 当前暂无订阅裂缝。
+[2025-03-13 17:36:56] [INFO] INFO: Log initialized successfully.
+[2025-03-13 17:41:57] [INFO] INFO: 裂缝: 
+[2025-03-13 17:41:57] [INFO] INFO: 殲滅 Grineer 古纪 Hellas (火星) 57m 0s
+[2025-03-13 17:41:57] [INFO] INFO: 钢铁之路 殲滅 Grineer 安魂 Dakata (Kuva 要塞) 1h 20m 52s
+[2025-03-13 17:41:57] [INFO] INFO: 虚空风暴 殲滅 Corpus 中纪 女娲之矿 (海王星比邻星域) 28m 11s
+[2025-03-13 17:41:57] [INFO] INFO: 虚空风暴 殲滅 Corpus 后纪 蒲芦 (面纱) 1h 28m 11s
+[2025-03-13 17:41:59] [INFO] INFO: Email sent successfully!
+[2025-03-13 17:46:57] [INFO] INFO: 裂缝: 
+[2025-03-13 17:46:57] [INFO] INFO: 殲滅 Grineer 古纪 Hellas (火星) 52m 0s
+[2025-03-13 17:46:57] [INFO] INFO: 钢铁之路 殲滅 Grineer 安魂 Dakata (Kuva 要塞) 1h 15m 52s
+[2025-03-13 17:46:57] [INFO] INFO: 虚空风暴 殲滅 Corpus 中纪 女娲之矿 (海王星比邻星域) 23m 11s
+[2025-03-13 17:46:57] [INFO] INFO: 虚空风暴 殲滅 Corpus 后纪 蒲芦 (面纱) 1h 23m 11s
+[2025-09-18 13:20:36] [INFO] INFO: Log initialized successfully.
+[2025-09-18 13:23:20] [INFO] INFO: Log initialized successfully.
+[2025-09-18 13:28:21] [INFO] INFO: 裂缝: 
+[2025-09-18 13:28:21] [INFO] INFO: 当前暂无订阅裂缝。
+[2025-09-18 13:35:52] [INFO] INFO: Log initialized successfully.
+[2025-09-18 13:35:53] [INFO] INFO: 裂缝: 
+[2025-09-18 13:35:53] [INFO] INFO: 当前暂无订阅裂缝。
+[2025-09-18 13:36:50] [INFO] INFO: Log initialized successfully.
+[2025-09-18 13:36:50] [INFO] INFO: 裂缝: 
+[2025-09-18 13:36:50] [INFO] INFO: 当前暂无订阅裂缝。
+[2025-09-18 13:36:57] [INFO] INFO: Log initialized successfully.
+[2025-09-18 13:36:57] [INFO] INFO: 裂缝: 
+[2025-09-18 13:36:57] [INFO] INFO: 当前暂无订阅裂缝。
+[2025-09-18 13:37:21] [INFO] INFO: Log initialized successfully.
+[2025-09-18 13:39:17] [INFO] INFO: Log initialized successfully.
+[2025-09-18 13:39:24] [INFO] INFO: 裂缝: 
+[2025-09-18 13:39:24] [INFO] INFO: 当前暂无订阅裂缝。
+[2025-09-18 13:39:31] [INFO] INFO: Log initialized successfully.
+[2025-09-18 13:39:31] [INFO] INFO: 裂缝: 
+[2025-09-18 13:39:31] [INFO] INFO: 当前暂无订阅裂缝。
+[2025-09-18 13:42:55] [INFO] INFO: Log initialized successfully.
+[2025-09-18 13:42:56] [INFO] INFO: 裂缝: 
+[2025-09-18 13:42:56] [INFO] INFO: 当前暂无订阅裂缝。
+[2025-09-18 13:43:06] [INFO] INFO: Log initialized successfully.
+[2025-09-18 13:43:06] [INFO] INFO: 裂缝: 
+[2025-09-18 13:43:06] [INFO] INFO: 当前暂无订阅裂缝。
+[2025-09-18 13:43:21] [INFO] INFO: Log initialized successfully.
+[2025-09-18 13:44:58] [INFO] INFO: Log initialized successfully.
+[2025-09-18 13:45:54] [INFO] INFO: Log initialized successfully.
+[2025-09-18 13:47:10] [INFO] INFO: Log initialized successfully.
+[2025-09-18 13:47:22] [INFO] INFO: Log initialized successfully.
+[2025-09-18 13:47:22] [INFO] INFO: 裂缝: 
+[2025-09-18 13:47:22] [INFO] INFO: 当前暂无订阅裂缝。
+[2025-09-18 13:47:44] [INFO] INFO: Log initialized successfully.
+[2025-09-18 13:47:44] [INFO] INFO: 裂缝: 
+[2025-09-18 13:47:44] [INFO] INFO: 当前暂无订阅裂缝。
+[2025-09-18 13:47:52] [INFO] INFO: Log initialized successfully.
+[2025-09-18 13:49:59] [INFO] INFO: Log initialized successfully.
+[2025-09-18 13:50:14] [INFO] INFO: Log initialized successfully.
+[2025-09-18 13:50:22] [INFO] INFO: Log initialized successfully.
+[2025-09-18 13:50:58] [INFO] INFO: Log initialized successfully.
+[2025-09-18 13:54:55] [INFO] INFO: Log initialized successfully.
+[2025-09-18 13:54:56] [INFO] INFO: 裂缝: 
+[2025-09-18 13:54:56] [INFO] INFO: 钢铁之路 殲滅 Grineer 前纪 Telesto (土星) 
+[2025-09-18 13:54:56] [INFO] INFO: 捕獲 Corpus 前纪 Skyresh (火衛一) 
+[2025-09-18 13:54:56] [INFO] INFO: 殲滅 Crossfire 古纪 Ultor (火星) 
+[2025-09-18 13:54:56] [INFO] INFO: 殲滅 Orokin 后纪 Oxomoco (虚空) 
+[2025-09-18 13:54:56] [INFO] INFO: 捕獲 Infested 后纪 Isos (鬩神星) 
+[2025-09-18 13:54:56] [INFO] INFO: 钢铁之路 殲滅 Grineer 古纪 E Prime (地球) 
+[2025-09-18 13:54:56] [INFO] INFO: 捕獲 Corpus 中纪 Galatea (海王星) 
+[2025-09-18 13:54:56] [INFO] INFO: 虚空风暴 殲滅 Corpus 古纪 虹桥回声 (金星比邻星域) 
+[2025-09-18 13:54:59] [INFO] INFO: Email sent successfully!

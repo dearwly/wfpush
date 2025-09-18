@@ -20,13 +20,18 @@ func main() {
 	warframe := modules.Warframe{
 		SubsFissures: []modules.SubFissure{
 			{
-				MissionType: "中斷", IsHard: true, Tier: "古纪",
+				MissionType: "殲滅",
 			},
 			{
-				MissionType: "中斷", IsHard: true, Tier: "前纪",
+				MissionType: "捕獲",
 			},
 			{
-				MissionType: "中斷", IsHard: true, Tier: "后纪",
+				MissionType: "殲滅",
+				IsHard:      true,
+			},
+			{
+				MissionType: "捕獲",
+				IsHard:      true,
 			},
 		},
 	}
@@ -36,14 +41,11 @@ func main() {
 	defer ticker.Stop()
 
 	// 使用 goroutine 或循环来不断等待 Ticker 信号并调用函数
-	for {
-		select {
-		case <-ticker.C: // 当 Ticker 发出信号时，执行函数
-			err = modules.SendSubsFissures(warframe)
-			if err != nil {
-				// 处理错误
-				modules.Log(fmt.Sprint("Error: ", err), modules.ERROR)
-			}
+	for range ticker.C { // 每当 ticker.C 触发时执行
+		err = modules.SendSubsFissures(warframe)
+		if err != nil {
+			// 处理错误
+			modules.Log(fmt.Sprint("Error: ", err), modules.ERROR)
 		}
 	}
 
