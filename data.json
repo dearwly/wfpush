@@ -1,78 +1,6 @@
 {
   "fissure": [
     {
-      "id": "68cb54e230e34c9af189b040",
-      "activation": "2025-09-18T00:40:02.347Z",
-      "expiry": "2025-09-18T02:35:19.189Z",
-      "node": "Ultor (Mars)",
-      "missionType": "Extermination",
-      "enemyKey": "Crossfire",
-      "tier": "Lith",
-      "eta": "",
-      "isHard": false,
-      "isStorm": false
-    },
-    {
-      "id": "68cb564ab3aee3334989b03e",
-      "activation": "2025-09-18T00:46:02.320Z",
-      "expiry": "2025-09-18T02:36:51.012Z",
-      "node": "Tamu (Kuva Fortress)",
-      "missionType": "Disruption",
-      "enemyKey": "Grineer",
-      "tier": "Requiem",
-      "eta": "",
-      "isHard": false,
-      "isStorm": false
-    },
-    {
-      "id": "68cb57ee21f0d4be6089b03e",
-      "activation": "2025-09-18T00:53:02.068Z",
-      "expiry": "2025-09-18T02:50:20.640Z",
-      "node": "Oxomoco (Void)",
-      "missionType": "Extermination",
-      "enemyKey": "Orokin",
-      "tier": "Axi",
-      "eta": "",
-      "isHard": false,
-      "isStorm": false
-    },
-    {
-      "id": "68cb582a4d7d117eb989b040",
-      "activation": "2025-09-18T00:54:02.176Z",
-      "expiry": "2025-09-18T02:49:07.010Z",
-      "node": "Augustus (Mars)",
-      "missionType": "Excavation",
-      "enemyKey": "Grineer",
-      "tier": "Lith",
-      "eta": "",
-      "isHard": true,
-      "isStorm": false
-    },
-    {
-      "id": "68cb5a82d21c7f181a89b03e",
-      "activation": "2025-09-18T01:04:02.831Z",
-      "expiry": "2025-09-18T02:40:48.193Z",
-      "node": "Stephano (Uranus)",
-      "missionType": "Defense",
-      "enemyKey": "Grineer",
-      "tier": "Neo",
-      "eta": "",
-      "isHard": false,
-      "isStorm": false
-    },
-    {
-      "id": "68cb6112be9aeb473e89b03f",
-      "activation": "2025-09-18T01:32:02.654Z",
-      "expiry": "2025-09-18T02:50:24.546Z",
-      "node": "Nabuk (Kuva Fortress)",
-      "missionType": "Defense",
-      "enemyKey": "Grineer",
-      "tier": "Requiem",
-      "eta": "",
-      "isHard": true,
-      "isStorm": false
-    },
-    {
       "id": "68cb63a6f726d7a35089b03e",
       "activation": "2025-09-18T01:43:02.634Z",
       "expiry": "2025-09-18T03:14:45.245Z",
@@ -80,7 +8,6 @@
       "missionType": "Survival",
       "enemyKey": "Infested",
       "tier": "Axi",
-      "eta": "",
       "isHard": true,
       "isStorm": false
     },
@@ -92,7 +19,6 @@
       "missionType": "Corruption",
       "enemyKey": "Crossfire",
       "tier": "Omnia",
-      "eta": "",
       "isHard": false,
       "isStorm": false
     },
@@ -104,7 +30,6 @@
       "missionType": "Interception",
       "enemyKey": "Orokin",
       "tier": "Neo",
-      "eta": "",
       "isHard": true,
       "isStorm": false
     },
@@ -116,7 +41,6 @@
       "missionType": "Sabotage",
       "enemyKey": "Corpus",
       "tier": "Neo",
-      "eta": "",
       "isHard": true,
       "isStorm": false
     },
@@ -128,7 +52,6 @@
       "missionType": "Extermination",
       "enemyKey": "Corpus",
       "tier": "Neo",
-      "eta": "",
       "isHard": true,
       "isStorm": false
     },
@@ -140,7 +63,6 @@
       "missionType": "Capture",
       "enemyKey": "Grineer",
       "tier": "Meso",
-      "eta": "",
       "isHard": false,
       "isStorm": false
     },
@@ -152,7 +74,6 @@
       "missionType": "Spy",
       "enemyKey": "Corpus",
       "tier": "Meso",
-      "eta": "",
       "isHard": false,
       "isStorm": false
     },
@@ -164,7 +85,6 @@
       "missionType": "Survival",
       "enemyKey": "Grineer",
       "tier": "Omnia",
-      "eta": "",
       "isHard": true,
       "isStorm": false
     },
@@ -176,7 +96,6 @@
       "missionType": "Extermination",
       "enemyKey": "Corpus",
       "tier": "Meso",
-      "eta": "",
       "isHard": true,
       "isStorm": false
     },
@@ -188,7 +107,6 @@
       "missionType": "Mobile Defense",
       "enemyKey": "Corpus",
       "tier": "Lith",
-      "eta": "",
       "isHard": false,
       "isStorm": false
     },
@@ -200,7 +118,6 @@
       "missionType": "Rescue",
       "enemyKey": "Grineer",
       "tier": "Lith",
-      "eta": "",
       "isHard": false,
       "isStorm": false
     },
@@ -212,8 +129,106 @@
       "missionType": "Rescue",
       "enemyKey": "Grineer",
       "tier": "Requiem",
-      "eta": "",
       "isHard": false,
+      "isStorm": false
+    },
+    {
+      "id": "68cb701297b32b6e3b89b03e",
+      "activation": "2025-09-18T02:36:02.770Z",
+      "expiry": "2025-09-18T04:23:57.424Z",
+      "node": "Laomedeia (Neptune)",
+      "missionType": "Disruption",
+      "enemyKey": "Corpus",
+      "tier": "Neo",
+      "isHard": false,
+      "isStorm": false
+    },
+    {
+      "id": "68cb701297b32b6e3b89b03f",
+      "activation": "2025-09-18T02:36:02.770Z",
+      "expiry": "2025-09-18T03:46:17.005Z",
+      "node": "Abaddon (Europa)",
+      "missionType": "Capture",
+      "enemyKey": "Corpus",
+      "tier": "Neo",
+      "isHard": false,
+      "isStorm": false
+    },
+    {
+      "id": "68cb701297b32b6e3b89b040",
+      "activation": "2025-09-18T02:36:02.770Z",
+      "expiry": "2025-09-18T04:27:50.100Z",
+      "node": "Umbriel (Uranus)",
+      "missionType": "Interception",
+      "enemyKey": "Grineer",
+      "tier": "Neo",
+      "isHard": false,
+      "isStorm": false
+    },
+    {
+      "id": "68cb722ee126cc7a3089b03e",
+      "activation": "2025-09-18T02:45:02.312Z",
+      "expiry": "2025-09-18T04:32:55.287Z",
+      "node": "Spear (Mars)",
+      "missionType": "Defense",
+      "enemyKey": "Grineer",
+      "tier": "Lith",
+      "isHard": true,
+      "isStorm": false
+    },
+    {
+      "id": "68cb722ee126cc7a3089b03f",
+      "activation": "2025-09-18T02:45:02.312Z",
+      "expiry": "2025-09-18T04:24:01.634Z",
+      "node": "Gaia (Earth)",
+      "missionType": "Interception",
+      "enemyKey": "Grineer",
+      "tier": "Lith",
+      "isHard": true,
+      "isStorm": false
+    },
+    {
+      "id": "68cb726a7670a871a789b03e",
+      "activation": "2025-09-18T02:46:02.214Z",
+      "expiry": "2025-09-18T03:54:20.987Z",
+      "node": "Isos (Eris)",
+      "missionType": "Capture",
+      "enemyKey": "Infested",
+      "tier": "Axi",
+      "isHard": false,
+      "isStorm": false
+    },
+    {
+      "id": "68cb726a7670a871a789b03f",
+      "activation": "2025-09-18T02:46:02.214Z",
+      "expiry": "2025-09-18T04:19:31.966Z",
+      "node": "Tiwaz (Void)",
+      "missionType": "Mobile Defense",
+      "enemyKey": "Orokin",
+      "tier": "Axi",
+      "isHard": false,
+      "isStorm": false
+    },
+    {
+      "id": "68cb726a7670a871a789b040",
+      "activation": "2025-09-18T02:46:02.214Z",
+      "expiry": "2025-09-18T03:46:51.854Z",
+      "node": "Taveuni (Kuva Fortress)",
+      "missionType": "Survival",
+      "enemyKey": "Grineer",
+      "tier": "Requiem",
+      "isHard": true,
+      "isStorm": false
+    },
+    {
+      "id": "68cb726a7670a871a789b041",
+      "activation": "2025-09-18T02:46:02.214Z",
+      "expiry": "2025-09-18T04:36:53.309Z",
+      "node": "Tamu (Kuva Fortress)",
+      "missionType": "Disruption",
+      "enemyKey": "Grineer",
+      "tier": "Requiem",
+      "isHard": true,
       "isStorm": false
     },
     {
@@ -224,7 +239,6 @@
       "missionType": "Skirmish",
       "enemyKey": "Grineer",
       "tier": "Lith",
-      "eta": "",
       "isHard": false,
       "isStorm": true
     },
@@ -236,7 +250,6 @@
       "missionType": "Extermination",
       "enemyKey": "Corpus",
       "tier": "Lith",
-      "eta": "",
       "isHard": false,
       "isStorm": true
     },
@@ -248,7 +261,6 @@
       "missionType": "Skirmish",
       "enemyKey": "Grineer",
       "tier": "Meso",
-      "eta": "",
       "isHard": false,
       "isStorm": true
     },
@@ -260,7 +272,6 @@
       "missionType": "Spy",
       "enemyKey": "Corpus",
       "tier": "Neo",
-      "eta": "",
       "isHard": false,
       "isStorm": true
     },
@@ -272,7 +283,6 @@
       "missionType": "Orphix",
       "enemyKey": "Corpus",
       "tier": "Axi",
-      "eta": "",
       "isHard": false,
       "isStorm": true
     },
@@ -284,7 +294,6 @@
       "missionType": "Skirmish",
       "enemyKey": "Grineer",
       "tier": "Axi",
-      "eta": "",
       "isHard": false,
       "isStorm": true
     },
@@ -296,7 +305,6 @@
       "missionType": "Skirmish",
       "enemyKey": "Grineer",
       "tier": "Lith",
-      "eta": "",
       "isHard": false,
       "isStorm": true
     },
@@ -308,7 +316,6 @@
       "missionType": "Survival",
       "enemyKey": "Corpus",
       "tier": "Lith",
-      "eta": "",
       "isHard": false,
       "isStorm": true
     },
@@ -320,7 +327,6 @@
       "missionType": "Skirmish",
       "enemyKey": "Grineer",
       "tier": "Meso",
-      "eta": "",
       "isHard": false,
       "isStorm": true
     },
@@ -332,19 +338,6 @@
       "missionType": "Survival",
       "enemyKey": "Corpus",
       "tier": "Neo",
-      "eta": "",
-      "isHard": false,
-      "isStorm": true
-    },
-    {
-      "id": "68cb62f2189742906589b041",
-      "activation": "2025-09-18T02:40:01.403Z",
-      "expiry": "2025-09-18T04:10:01.403Z",
-      "node": "Fenton's Field (Pluto)",
-      "missionType": "Survival",
-      "enemyKey": "Corpus",
-      "tier": "Axi",
-      "eta": "",
       "isHard": false,
       "isStorm": true
     },
@@ -356,7 +349,17 @@
       "missionType": "Skirmish",
       "enemyKey": "Grineer",
       "tier": "Axi",
-      "eta": "",
+      "isHard": false,
+      "isStorm": true
+    },
+    {
+      "id": "68cb62f2189742906589b041",
+      "activation": "2025-09-18T02:40:01.403Z",
+      "expiry": "2025-09-18T04:10:01.403Z",
+      "node": "Fenton's Field (Pluto)",
+      "missionType": "Survival",
+      "enemyKey": "Corpus",
+      "tier": "Axi",
       "isHard": false,
       "isStorm": true
     }

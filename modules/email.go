@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-// HTMLTemplate 存储了用于发送邮件的HTML模板
+// HTMLTemplate 修改：在显示地点时调用 TranslateNode
 const HTMLTemplate = `
 <!DOCTYPE html>
 <html>
@@ -52,7 +52,7 @@ const HTMLTemplate = `
               {{.MissionType | TranslateMissionType}}
             </span>
           </td>
-          <td>{{.Node}}</td>
+          <td>{{.Node | TranslateNode}}</td>
           <td>{{.Tier | TranslateTier}}</td>
           <td>{{.EnemyKey | TranslateFaction}}</td>
           <td>{{.GetETA}}</td>
@@ -69,6 +69,7 @@ const HTMLTemplate = `
 
 // Send_email 函数保持不变
 func Send_email(htmlBody string, cfg *Config) {
+	// ... 省略未改变的代码 ...
 	smtpServer := cfg.Email.SMTPServer
 	port := strconv.Itoa(cfg.Email.Port)
 	sender := cfg.Email.Sender

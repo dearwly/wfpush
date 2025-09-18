@@ -11,6 +11,7 @@ import (
 	"time"
 )
 
+// ... platform, params, SubFissure, Warframe 保持不变 ...
 var platform string = "pc"
 var params map[string]string = map[string]string{
 	"language": "en",
@@ -27,35 +28,29 @@ type Warframe struct {
 	SubsFissures []SubFissure
 }
 
-// Fissure 结构体修改：新增 Activation 和 Expiry 字段
+// Fissure 结构体修改：移除 ETA 字段
 type Fissure struct {
 	ID          string `json:"id"`
-	Activation  string `json:"activation"` // 新增
-	Expiry      string `json:"expiry"`     // 新增
+	Activation  string `json:"activation"`
+	Expiry      string `json:"expiry"`
 	Node        string `json:"node"`
 	MissionType string `json:"missionType"`
 	EnemyKey    string `json:"enemyKey"`
 	Tier        string `json:"tier"`
-	ETA         string `json:"eta"` // 保留，优先使用
 	IsHard      bool   `json:"isHard"`
 	IsStorm     bool   `json:"isStorm"`
 }
 
-// 新增方法：为 Fissure 结构体计算或获取剩余时间
+// GetETA 方法修改：移除对 f.ETA 的依赖
 func (f *Fissure) GetETA() string {
-	// 优先使用API直接提供的eta
-	if f.ETA != "" {
-		return f.ETA
-	}
-
-	// 如果eta为空，则通过expiry计算
 	if f.Expiry == "" {
 		return "未知"
 	}
 
 	expiryTime, err := time.Parse(time.RFC3339Nano, f.Expiry)
 	if err != nil {
-		return "解析时间失败"
+		Log(fmt.Sprintf("解析时间戳失败 '%s': %v", f.Expiry, err), WARNING)
+		return "解析失败"
 	}
 
 	remaining := time.Until(expiryTime)
@@ -64,18 +59,18 @@ func (f *Fissure) GetETA() string {
 		return "已结束"
 	}
 
-	// 格式化为 "Xm Ys" 或 "Hh Xm Ys" 的形式
+	// 格式化为 "Xh Ym Zs"
 	hours := int(remaining.Hours())
 	minutes := int(remaining.Minutes()) % 60
 	seconds := int(remaining.Seconds()) % 60
 
 	if hours > 0 {
-		return fmt.Sprintf("%dh %dm %ds", hours, minutes, seconds)
+		return fmt.Sprintf("%d时 %d分 %d秒", hours, minutes, seconds)
 	}
-	return fmt.Sprintf("%dm %ds", minutes, seconds)
+	return fmt.Sprintf("%d分 %d秒", minutes, seconds)
 }
 
-// ... GetFissuresWithRetry, GetRawFissures 保持不变 ...
+// ... GetFissuresWithRetry, GetRawFissures, SendSubsFissures, CheckSubsFissure 保持不变 ...
 func GetFissuresWithRetry(f Warframe, maxRetries int, delay time.Duration) ([]byte, error) {
 	url := fmt.Sprintf("https://api.warframestat.us/%s/fissures", platform)
 	client := &http.Client{}
@@ -157,7 +152,6 @@ func SendSubsFissures(f Warframe, cfg *Config) error {
 	return nil
 }
 
-// CheckSubsFissure 保持不变
 func CheckSubsFissure(f Warframe) ([]Fissure, bool, error) {
 	type existsFissures struct {
 		Fissures []Fissure `json:"fissure"`
@@ -244,7 +238,7 @@ func CheckSubsFissure(f Warframe) ([]Fissure, bool, error) {
 	return newSubscribedFissures, isNew, nil
 }
 
-// formatPrint 修改：使用新的 GetETA 方法
+// formatPrint 修改：使用 TranslateNode
 func formatPrint(fissure Fissure) (string, error) {
 	head := ""
 	if fissure.IsHard {
@@ -259,20 +253,20 @@ func formatPrint(fissure Fissure) (string, error) {
 		TranslateMissionType(fissure.MissionType),
 		TranslateFaction(fissure.EnemyKey),
 		TranslateTier(fissure.Tier),
-		fissure.Node,
-		fissure.GetETA(), // 修改
+		TranslateNode(fissure.Node), // 修改
+		fissure.GetETA(),
 	), nil
 }
 
-// formatFissuresToHTML 修改：使用从 email.go 导入的模板
+// formatFissuresToHTML 修改：在 funcMap 中注册新的翻译函数
 func formatFissuresToHTML(fissures []Fissure) (string, error) {
 	funcMap := template.FuncMap{
 		"TranslateMissionType": TranslateMissionType,
 		"TranslateFaction":     TranslateFaction,
 		"TranslateTier":        TranslateTier,
+		"TranslateNode":        TranslateNode, // 新增
 	}
 
-	// 使用从 email.go 导出的 HTMLTemplate 变量
 	tmpl, err := template.New("email").Funcs(funcMap).Parse(HTMLTemplate)
 	if err != nil {
 		return "", err

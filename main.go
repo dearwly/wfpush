@@ -4,61 +4,112 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"strings"
 	"time"
 	"wfpush/modules"
 )
 
+const configPath = "config.yml"
+
 func main() {
-	// 首先加载配置
-	cfg, err := modules.LoadConfig("config.yml")
-	if err != nil {
-		// 如果配置文件加载失败，无法继续，直接打印错误并退出
-		fmt.Println("Error loading config.yml:", err)
-		return
+	// 如果用户输入了命令行参数，则执行指令模式
+	if len(os.Args) > 1 {
+		handleCommand()
+		return // 执行完指令后退出
 	}
 
-	err = initialData()
+	// 如果没有参数，则启动裂缝监控服务模式
+	runService()
+}
+
+// handleCommand 负责处理 list, add, delete 等指令
+func handleCommand() {
+	command := os.Args[1]
+	args := os.Args[2:]
+
+	switch command {
+	case "list":
+		modules.ListSubscriptions()
+	case "add":
+		modules.AddSubscription(args)
+	case "delete":
+		if len(args) != 1 {
+			fmt.Println("用法: delete <索引>")
+			fmt.Println("使用 'list' 命令查看订阅及其索引。")
+			return
+		}
+		modules.DeleteSubscription(args[0])
+	case "help":
+		printHelp()
+	default:
+		fmt.Printf("未知指令: '%s'\n", command)
+		printHelp()
+	}
+}
+
+// runService 启动持续监控裂缝的服务
+func runService() {
+	fmt.Println("启动裂缝订阅监控服务...")
+	cfg, err := modules.LoadConfig(configPath)
 	if err != nil {
-		modules.Log(fmt.Sprint("Error initializing :", err), modules.ERROR)
-		return // 初始化失败也应退出
+		fmt.Println("错误:", err)
+		// 如果是初次创建文件导致的错误，提示后直接退出
+		if strings.Contains(err.Error(), "请先填写") {
+			return
+		}
+	}
+
+	if err := initialData(); err != nil {
+		// Log 函数此时可能还未初始化，所以用 fmt
+		fmt.Println("初始化失败:", err)
+		return
 	}
 	defer modules.CloseLog()
 
-	// 使用从 config.yml 加载的订阅
 	warframe := modules.Warframe{
 		SubsFissures: cfg.Subscriptions,
 	}
 
-	// 首次运行立即执行一次检查
-	modules.Log("Performing initial check...", modules.INFO)
+	modules.Log("正在执行首次裂缝检查...", modules.INFO)
 	err = modules.SendSubsFissures(warframe, cfg)
 	if err != nil {
-		modules.Log(fmt.Sprint("Error during initial check: ", err), modules.ERROR)
+		modules.Log(fmt.Sprint("首次检查出错: ", err), modules.ERROR)
 	}
 
-	// 创建一个每5分钟触发一次的 Ticker
 	ticker := time.NewTicker(5 * time.Minute)
 	defer ticker.Stop()
 
-	// 使用 goroutine 或循环来不断等待 Ticker 信号并调用函数
+	modules.Log("服务已启动，每5分钟检查一次裂缝更新。", modules.INFO)
 	for range ticker.C {
-		// 将配置 cfg 传递给函数
 		err = modules.SendSubsFissures(warframe, cfg)
 		if err != nil {
-			modules.Log(fmt.Sprint("Error: ", err), modules.ERROR)
+			modules.Log(fmt.Sprint("执行轮询任务出错: ", err), modules.ERROR)
 		}
 	}
 }
 
+// printHelp 显示帮助信息
+func printHelp() {
+	fmt.Println("\nWarframe 裂缝订阅助手")
+	fmt.Println("用法:")
+	fmt.Println("  <无参数>         - 启动裂缝监控服务")
+	fmt.Println("  list             - 列出所有当前的订阅")
+	fmt.Println("  add <任务> [...] - 添加一个新的订阅")
+	fmt.Println("  delete <索引>    - 根据索引删除一个订阅")
+	fmt.Println("  help             - 显示此帮助信息")
+	fmt.Println("\n'add' 命令示例:")
+	fmt.Println("  add 捕获")
+	fmt.Println("  add 生存 is_hard=true")
+	fmt.Println("  add 挖掘 tier=古纪 is_hard=false")
+}
+
+// initialData 函数保持不变
 func initialData() error {
-	// 初始化日志
 	err := modules.InitLog("log.txt")
 	if err != nil {
 		return err
 	}
-	//初始化data.json文件
 	if _, err := os.Stat("data.json"); os.IsNotExist(err) {
-		// 如果文件不存在，创建并初始化
 		initialData := map[string][]modules.Fissure{
 			"fissure": {},
 		}
@@ -68,7 +119,6 @@ func initialData() error {
 		}
 		defer file.Close()
 
-		// 将初始数据写入文件
 		encoder := json.NewEncoder(file)
 		encoder.SetIndent("", "  ")
 		err = encoder.Encode(initialData)

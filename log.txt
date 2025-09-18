@@ -287,3 +287,28 @@
 [2025-09-18 14:36:21] [INFO] INFO: 虚空风暴 歼灭 Corpus 古纪 Bifrost Echo (Venus) 剩余33m 39s
 [2025-09-18 14:36:21] [INFO] INFO: 发现新裂缝，准备发送邮件。
 [2025-09-18 14:36:25] [INFO] INFO: 邮件成功发送至: dearwangliyu@outlook.com
+[2025-09-18 14:46:23] [INFO] INFO: Log initialized successfully.
+[2025-09-18 14:46:23] [INFO] INFO: Performing initial check...
+[2025-09-18 14:46:24] [INFO] INFO: 当前符合订阅的裂缝: 
+[2025-09-18 14:46:24] [INFO] INFO: 歼灭 Orokin 后纪 Oxomoco (虚空) 剩余3分 56秒
+[2025-09-18 14:46:24] [INFO] INFO: 钢铁之路 生存 Infested 后纪 Nimus (阋神星) 剩余28分 21秒
+[2025-09-18 14:46:24] [INFO] INFO: 钢铁之路 歼灭 Corpus 中纪 Neso (海王星) 剩余58分 4秒
+[2025-09-18 14:46:24] [INFO] INFO: 捕获 Grineer 前纪 Cassini (土星) 剩余1时 33分 45秒
+[2025-09-18 14:46:24] [INFO] INFO: 钢铁之路 歼灭 Corpus 前纪 Carpo (木星) 剩余41分 11秒
+[2025-09-18 14:46:24] [INFO] INFO: 捕获 Corpus 中纪 Abaddon (木卫二) 剩余59分 52秒
+[2025-09-18 14:46:24] [INFO] INFO: 虚空风暴 歼灭 Corpus 古纪 Bifrost Echo (金星) 剩余23分 37秒
+[2025-09-18 14:46:24] [INFO] INFO: 发现新裂缝，准备发送邮件。
+[2025-09-18 14:46:27] [INFO] INFO: 邮件成功发送至: dearwangliyu@outlook.com
+[2025-09-18 14:56:56] [INFO] INFO: Log initialized successfully.
+[2025-09-18 14:56:56] [INFO] INFO: 正在执行首次裂缝检查...
+[2025-09-18 14:56:56] [INFO] INFO: 当前符合订阅的裂缝: 
+[2025-09-18 14:56:56] [INFO] INFO: 钢铁之路 生存 Infested 后纪 Nimus (阋神星) 剩余17分 48秒
+[2025-09-18 14:56:56] [INFO] INFO: 钢铁之路 歼灭 Corpus 中纪 Neso (海王星) 剩余47分 32秒
+[2025-09-18 14:56:56] [INFO] INFO: 捕获 Grineer 前纪 Cassini (土星) 剩余1时 23分 12秒
+[2025-09-18 14:56:56] [INFO] INFO: 钢铁之路 歼灭 Corpus 前纪 Carpo (木星) 剩余30分 39秒
+[2025-09-18 14:56:56] [INFO] INFO: 捕获 Corpus 中纪 Abaddon (木卫二) 剩余49分 20秒
+[2025-09-18 14:56:56] [INFO] INFO: 捕获 Infested 后纪 Isos (阋神星) 剩余57分 24秒
+[2025-09-18 14:56:56] [INFO] INFO: 虚空风暴 歼灭 Corpus 古纪 Bifrost Echo (金星) 剩余13分 4秒
+[2025-09-18 14:56:56] [INFO] INFO: 发现新裂缝，准备发送邮件。
+[2025-09-18 14:56:59] [INFO] INFO: 邮件成功发送至: dearwangliyu@outlook.com
+[2025-09-18 14:56:59] [INFO] INFO: 服务已启动，每5分钟检查一次裂缝更新。
